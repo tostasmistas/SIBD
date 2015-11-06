@@ -11,20 +11,19 @@ drop table if exists Device;
 drop table if exists Municipality;
 drop table if exists Period;
 
-
 create table Patient
-   (number  numeric(9,0), /* health no. in portugal has 9 digits */
+   (number  numeric(9,0), -- health no. in portugal has 9 digits
     name    varchar(255),
     address	varchar(255),
     primary key(number));
 
 create table PAN
    (domain	varchar(255),
-    phone	  numeric(9,0),  /* phones numbers in portugal have 9 digits */
+    phone	  numeric(9,0),  -- phones numbers in portugal have 9 digits
     primary key(domain));
 
 create table Device
-   (serialnum     NUMERIC(8,0), /* how many digits has the serial number of a device? */
+   (serialnum     NUMERIC(8,0), -- how many digits has the serial number of a device?
     manufacturer  VARCHAR(255),
     description		VARCHAR(255),
     primary key(serialnum, manufacturer));
@@ -44,7 +43,7 @@ create table Actuator
     foreign key(snum, manuf) references Device(serialnum, manufacturer));
 
 create table Municipality
-   (nut4code	NUMERIC(5,0), /* 5 digit code assigned by the National Bureau of Statistics */
+   (nut4code	NUMERIC(5,0), -- 5 digit code assigned by the National Bureau of Statistics
     name		  VARCHAR(255),
     primary key(nut4code));
 
@@ -57,7 +56,7 @@ create table Reading
    (snum		  NUMERIC(8,0),
     manuf     VARCHAR(255),
     datetime  DATETIME,
-    value     NUMERIC(5,2),  /* values read from the sensors have 5 total digits and 2 fractional digits */
+    value     NUMERIC(5,2),  -- values read from the sensors have 5 total digits and 2 fractional digits
     primary key(snum, manuf, datetime),
     foreign key(snum, manuf) references Sensor(snum, manuf));
 
@@ -65,7 +64,7 @@ create table Setting
    (snum		  NUMERIC(8,0),
     manuf		  VARCHAR(255),
     datetime  DATETIME,
-    value		  NUMERIC(5,2), /* settings sent to the actuators have 5 total digits and 2 fractional digits */
+    value		  NUMERIC(5,2), -- settings sent to the actuators have 5 total digits and 2 fractional digits
     primary key(snum, manuf, datetime),
     foreign key(snum, manuf) references Actuator(snum, manuf));
 
