@@ -48,14 +48,14 @@ create table Municipality
     primary key(nut4code));
 
 create table Period
-   (start	DATETIME,
-    end		DATETIME,
-    primary key(start, end));
+   (start	TIMESTAMP,
+    ends		TIMESTAMP,
+    primary key(start, ends));
 
 create table Reading
    (snum		  NUMERIC(8,0),
     manuf     VARCHAR(255),
-    datetime  DATETIME,
+    datetime  TIMESTAMP,
     value     NUMERIC(5,2),  -- values read from the sensors have 5 total digits and 2 fractional digits
     primary key(snum, manuf, datetime),
     foreign key(snum, manuf) references Sensor(snum, manuf));
@@ -63,38 +63,38 @@ create table Reading
 create table Setting
    (snum		  NUMERIC(8,0),
     manuf		  VARCHAR(255),
-    datetime  DATETIME,
+    datetime  TIMESTAMP,
     value		  NUMERIC(5,2), -- settings sent to the actuators have 5 total digits and 2 fractional digits
     primary key(snum, manuf, datetime),
     foreign key(snum, manuf) references Actuator(snum, manuf));
 
 create table Wears
-   (start     DATETIME,
-    end    	  DATETIME,
+   (start     TIMESTAMP,
+    ends    	  TIMESTAMP,
     patient   NUMERIC(9,0),
     pan       VARCHAR(255),
-    primary key(start, end, patient),
-    foreign key(start, end) references Period(start, end),
+    primary key(start, ends, patient),
+    foreign key(start, ends) references Period(start, ends),
     foreign key(patient) references Patient(number),
     foreign key(pan) references PAN(domain));
 
 create table Lives
-   (start   DATETIME,
-    end    	DATETIME,
+   (start   TIMESTAMP,
+    ends    	TIMESTAMP,
     patient	NUMERIC(9,0),
     muni    NUMERIC(5,0),
-    primary key(start, end, patient),
-    foreign key(start, end) references Period(start, end),
+    primary key(start, ends, patient),
+    foreign key(start, ends) references Period(start, ends),
     foreign key(patient) references Patient(number),
     foreign key(muni) references Municipality(nut4code));
 
 create table Connects
-   (start   DATETIME,
-    end    	DATETIME,
+   (start   TIMESTAMP,
+    ends    	TIMESTAMP,
     snum	  NUMERIC(8,0),
     manuf   VARCHAR(255),
     pan     VARCHAR(255),
-    primary key(start, end, snum, manuf),
-    foreign key(start, end) references Period(start, end),
+    primary key(start, ends, snum, manuf),
+    foreign key(start, ends) references Period(start, ends),
     foreign key(snum, manuf) references Device(serialnum, manufacturer),
     foreign key(pan) references PAN(domain));
