@@ -1,5 +1,5 @@
 
-insert into Patient values('12345678', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa');
+insert into Patient values('-3', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa');
 insert into Patient values('98765432', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('987654322', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 
@@ -37,4 +37,4 @@ insert into Period values('2014-05-29 08:56:21','2999-12-31 23:59:59');
 
 
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
-insert into Reading values('87650944', 'Philips', '2015-10-09 08:00:12', '60.3');
+insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:12', '60.3');
