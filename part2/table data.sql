@@ -1,19 +1,19 @@
 
-insert into Patient values('-3', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa');
+insert into Patient values('-3', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa'); -- should fail
 insert into Patient values('98765432', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('987654322', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 
 
 insert into PAN values('pan99.healthunit.org', '914457220');
 insert into PAN values('pan33.healthunit.org', '845 763 207');
-insert into PAN values('pan99.healthunit.org', '+351 914457220');
+insert into PAN values('pan99.healthunit.org', '+351 914457220'); -- should fail
 
 
 insert into Device values('87650943', 'Philips', 'blood pressure');
 insert into Device values('98765432', 'Philips', 'blood pressure');
 insert into Device values('12345678', 'Philips', 'scale');
 insert into Device values('12098765', 'Philips', 'scale');
-insert into Device values('87650943', 'Philips', 'scale');
+insert into Device values('87650943', 'Philips', 'scale'); -- should fail
 insert into Device values('35647828', 'Philips', 'rotating speed');
 
 
@@ -29,6 +29,7 @@ insert into Actuator values('35647828', 'Philips', 'rpm');
 insert into Municipality values('12345', 'Lisboa');
 insert into Municipality values('24351', 'Oeiras');
 insert into Municipality values('35374','Porto');
+insert into Municipality values('1234','Porto'); -- should fail
 
 
 insert into Period values('2015-12-13 17:50:44','2999-12-31 23:59:59');

@@ -19,7 +19,7 @@ create table Patient
 
 create table PAN
    (domain	varchar(255),
-    phone	  numeric(9,0),  -- phones numbers in portugal have 9 digits
+    phone	  integer(9),  -- phone numbers in portugal have 9 digits
     primary key(domain));
 
 create table Device
@@ -43,7 +43,7 @@ create table Actuator
     foreign key(snum, manuf) references Device(serialnum, manufacturer));
 
 create table Municipality
-   (nut4code	numeric(5,0), -- 5 digit code assigned by the National Bureau of Statistics
+   (nut4code	integer(5), -- 5 digit code assigned by the National Bureau of Statistics
     name		  varchar(255),
     primary key(nut4code));
 
@@ -82,7 +82,7 @@ create table Lives
    (start   timestamp,
     end     timestamp,
     patient	integer(9),
-    muni    numeric(5,0),
+    muni    integer(5),
     primary key(start, end, patient),
     foreign key(start, end) references Period(start, end),
     foreign key(patient) references Patient(number),
