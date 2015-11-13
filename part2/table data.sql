@@ -1,5 +1,5 @@
 
-insert into Patient values('-3', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa'); -- should fail
+insert into Patient values('123456789', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa'); -- should fail
 insert into Patient values('98765432', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('987654322', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 
@@ -35,7 +35,18 @@ insert into Municipality values('1234','Porto'); -- should fail
 insert into Period values('2015-12-13 17:50:44','2999-12-31 23:59:59');
 insert into Period values('2015-11-01 12:30:24','2999-12-31 23:59:59');
 insert into Period values('2014-05-29 08:56:21','2999-12-31 23:59:59');
+insert into Period values('2015-01-01 08:00:00','2015-01-30 08:00:00');
+insert into Period values('2015-01-02 08:00:00','2015-01-31 08:00:00');
+insert into Period values('2015-01-01 08:00:00','2015-01-31 08:00:00');
 
 
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
-insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:12', '60.3');
+insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:15', '60.1');
+
+
+insert into Setting values('35647828', 'Philips', '2015-10-09 09:00:55', '50.45');
+
+
+insert into Wears values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '123456789', 'pan99.healthunit.org');
+insert into Wears values('2015-01-02 08:00:00', '2015-01-31 08:00:00', '987654322', 'pan99.healthunit.org');
+insert into Wears values('2015-01-01 08:00:00', '2015-01-31 08:00:00', '123456789', 'pan99.healthunit.org');
