@@ -46,6 +46,7 @@ insert into Period values('2015-01-02 08:00:00','2015-01-31 08:00:00');
 insert into Period values('2015-01-01 08:00:00','2015-01-01 08:00:00');
 insert into Period values('2015-02-01 08:00:00','2015-03-01 08:00:00');
 insert into Period values('2014-01-01 08:00:00','2015-01-30 08:00:00');
+insert into Period values('2012-01-01 08:00:00','2013-01-30 08:00:00');
 
 
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
@@ -65,6 +66,7 @@ insert into Wears values('2015-01-01 08:00:00', '2015-02-03 08:00:00', '12345678
 insert into Wears values('2014-12-04 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2015-01-02 08:00:00', '2015-01-31 08:00:00', '987654322', 'pan99.healthunit.org');
+
 
 insert into Connects values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
 insert into Connects values('2014-01-01 08:00:00', '2015-01-30 08:00:00', '35647828', 'Philips','pan99.healthunit.org');
