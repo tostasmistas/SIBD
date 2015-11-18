@@ -1,5 +1,5 @@
 
-insert into Patient values('123456789', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa'); -- should fail
+insert into Patient values('123456789', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa');
 insert into Patient values('98765432', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('987654322', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('123344444', NULL, 'Da Street, n2, 4Esq, 1300-200 Oeiras');
@@ -49,6 +49,7 @@ insert into Period values('2015-02-01 08:00:00','2015-03-01 08:00:00');
 
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
 insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:15', '60.1');
+insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:15', '60.1');
 
 
 insert into Setting values('35647828', 'Philips', '2015-10-09 09:00:55', '50.45');
@@ -73,4 +74,3 @@ insert into Connects values('2015-01-01 08:00:00', '2015-02-03 08:00:00', '87650
 insert into Connects values('2014-12-04 08:00:00', '2015-02-03 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
 insert into Connects values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
 insert into Connects values('2015-01-02 08:00:00', '2015-01-31 08:00:00', '12345678', 'Philips','pan99.healthunit.org');
-
