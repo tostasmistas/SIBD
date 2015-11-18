@@ -2,9 +2,10 @@
   <head>
     <title>Patient Records</title>
   </head>
-  <body>
+  <body link="#ff6666">
     <font face="Helvetica">
     <form action="records.php" method="post">
+      <h3><a href="index.html">Home</a></h3>
       <h3><font color="#668cff">Acess Patient Records</font></h3>
       <p>Patient Number:
         <select name="number">
