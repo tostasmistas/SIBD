@@ -5,10 +5,8 @@
   <body link="#ff6666">
     <font face="Helvetica">
     <h3><a href="index.html">Home</a></h3>
-    <h3><font color="#668cff">Acess Patient Records</font></h3>
+    <h3><a href="patient_records.php"><font color="#66b2ff">Acess Patient Records</font></a></h3>
 <?php
-  ini_set('display_errors', on);
-  error_reporting(E_ALL);
   $host = "db.ist.utl.pt";
   $user = "ist173099";
   $pass = "mile6613";
@@ -23,9 +21,10 @@
     exit();
   }
 
+  $name = $_REQUEST['name'];
   $number = $_REQUEST['number'];
 
-  $sql = "SELECT DISTINCT Reading.snum, Reading.manuf, Reading.value, Sensor.units, Reading.datetime
+  $sql = "SELECT Reading.snum, Reading.manuf, Reading.value, Sensor.units, Reading.datetime
           FROM Patient, Wears, Connects, Reading, Sensor
           WHERE Wears.patient = '$number'
             AND Wears.pan = Connects.pan
@@ -41,8 +40,8 @@
     exit();
   }
 
-  //echo("<h4>Patient Name: $number</h4>");
-  echo("<h5>Patient Number: $number</h5>");
+  echo("<p><font size=\"2\">Patient Name: <strong>$name</strong></p>");
+  echo("<p>Patient Number: <strong>$number</strong></font></p>");
 
   echo("<table border=\"1\">");
   echo("<caption><strong>Readings</strong></caption>");
@@ -120,5 +119,6 @@
 
   $connection = null;
 ?>
+    </font>
   </body>
 </html>
