@@ -4,7 +4,7 @@
   </head>
   <body link="#ff6666">
     <font face="Helvetica">
-    <form action="select_patient.php" method="post">
+    <form action="select_patient_records.php" method="post">
       <h3><a href="index.html">Home</a></h3>
       <h3><font color="#66b2ff">Acess Patient Records</font></h3>
       <p>Patient Name:

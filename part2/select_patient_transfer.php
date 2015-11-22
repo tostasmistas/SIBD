@@ -1,11 +1,11 @@
 <html>
   <head>
-    <title>Patient Records</title>
+    <title>Transfer Devices</title>
   </head>
   <body>
     <font face="Helvetica">
     <h3><a href="index.html"><font color="#ff6666">Home</font></a></h3>
-    <h3><a href="patient_records.php"><font color="#66b2ff">Acess Patient Records</font></a></h3>
+    <h3><a href="transfer_devices.php"><font color="#66b2ff">Transfer Devices between PANs</font></a></h3>
 <?php
   $host = "db.ist.utl.pt";
   $user = "ist173099";
@@ -42,16 +42,17 @@
     echo("Displaying results for patients named <strong>$name</strong>:");
     echo("<p></p>");
     echo("<table border=\"0\" cellspacing=\"10\">\n");
-    echo("<tr><td width=\"50\"><strong>Name</strong></td><td width=\"50\"><strong>Number</strong></td></tr>");
+    echo("<col width=\"100\"><col width=\"100\"><col width=\"130\">");
+    echo("<tr><th>Name</th><th>Number</th></tr>");
     foreach($result as $row) {
       echo("<tr>\n");
-      echo("<td>{$row['name']}</td>\n");
-      echo("<td>{$row['number']}</td>\n");
-      echo("<td><a href=\"records.php?number=");
+      echo("<td align=\"center\">{$row['name']}</td>\n");
+      echo("<td align=\"center\">{$row['number']}</td>\n");
+      echo("<td align=\"center\"><a href=\"transfer.php?number=");
       echo($row['number']);
       echo("&name=");
       echo($row['name']);
-      echo("\"><font color=\"#007fff\">Show records</font></a></td>\n");
+      echo("\"><font color=\"#007fff\">Transfer devices</font></a></td>\n");
       echo("</tr>\n");
     }
     echo("</table>");
