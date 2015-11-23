@@ -13,8 +13,8 @@ drop table if exists Period;
 
 create table Patient
    (number  integer(9), -- health no. in portugal has 9 digits
-    name    varchar(255) NOT NULL,  
-    address	varchar(255), 
+    name    varchar(255) NOT NULL,
+    address	varchar(255),
     primary key(number));
 
 create table PAN
@@ -48,14 +48,14 @@ create table Municipality
     primary key(nut4code));
 
 create table Period
-   (start	timestamp,
-    end	  timestamp,
+   (start	datetime,
+    end	  datetime,
     primary key(start, end));
 
 create table Reading
    (snum		  numeric(8,0),
     manuf     varchar(255),
-    datetime  timestamp,
+    datetime  datetime,
     value     numeric(5,2) NOT NULL,  -- values read from the sensors have 5 total digits and 2 fractional digits
     primary key(snum, manuf, datetime),
     foreign key(snum, manuf) references Sensor(snum, manuf));
@@ -63,14 +63,14 @@ create table Reading
 create table Setting
    (snum		  numeric(8,0),
     manuf		  varchar(255),
-    datetime  timestamp,
+    datetime  datetime,
     value		  numeric(5,2), -- settings sent to the actuators have 5 total digits and 2 fractional digits
     primary key(snum, manuf, datetime),
     foreign key(snum, manuf) references Actuator(snum, manuf));
 
 create table Wears
-   (start   timestamp,
-    end    	timestamp,
+   (start   datetime,
+    end    	datetime,
     patient integer(9),
     pan     varchar(255),
     primary key(start, end, patient),
@@ -79,8 +79,8 @@ create table Wears
     foreign key(pan) references PAN(domain));
 
 create table Lives
-   (start   timestamp,
-    end     timestamp,
+   (start   datetime,
+    end     datetime,
     patient	integer(9),
     muni    integer(5), 
     primary key(start, end, patient),
@@ -89,8 +89,8 @@ create table Lives
     foreign key(muni) references Municipality(nut4code));
 
 create table Connects
-   (start timestamp,
-    end   timestamp,
+   (start datetime,
+    end   datetime,
     snum	numeric(8,0),
     manuf varchar(255),
     pan   varchar(255),
