@@ -6,6 +6,8 @@ insert into Patient values('987654322', 'Toni', 'Da Street, n2, 4Esq, 1300-200 O
 insert into Patient values('123344444', NULL, 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('465748931', 'António Manu', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('657658675', 'Zé Tó', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
+insert into Patient values('111111111', 'Mari', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
+
 
 insert into PAN values('pan99.healthunit.org', '914457220');
 insert into PAN values('pan33.healthunit.org', '845763207');
@@ -13,6 +15,8 @@ insert into PAN values('pan88.healthunit.org', '676498532');
 insert into PAN values('pan77.healthunit.org', '456948923');
 insert into PAN values('pan66.healthunit.org', '666566754');
 insert into PAN values('pan22.healthunit.org', '775445324');
+insert into PAN values('pan71.healthunit.org', '911121122');
+insert into PAN values('pan69.healthunit.org', '919191919');
 insert into PAN values('pan99.healthunit.org', '+351 914457220'); -- should fail
 
 
@@ -109,7 +113,8 @@ insert into Wears values('2000-07-02 08:00:00', '2001-12-31 00:00:00', '46574893
 insert into Wears values('2013-07-02 08:00:00', '2014-12-31 00:00:00', '465748931', 'pan66.healthunit.org');
 insert into Wears values('2015-06-03 08:00:00', '2020-01-01 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2015-07-02 08:00:00', '2999-12-31 00:00:00', '657658675', 'pan22.healthunit.org');
-
+insert into Wears values('2015-07-02 08:00:00', '2999-12-31 00:00:00', '111111111', 'pan69.healthunit.org');
+insert into Wears values('2000-07-02 08:00:00', '2001-12-31 00:00:00', '111111111', 'pan71.healthunit.org');
 
 insert into Connects values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
 insert into Connects values('2014-01-01 08:00:00', '2015-01-30 08:00:00', '35647828', 'Philips','pan99.healthunit.org');
@@ -128,6 +133,7 @@ insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '67756
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '97754422', 'Xiaomi','pan66.healthunit.org');
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '55342299', 'Xiaomi','pan66.healthunit.org');
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '35647828', 'Philips','pan66.healthunit.org');
+insert into Connects values('2000-07-02 08:00:00', '2001-12-31 00:00:00', '35647828', 'Philips','pan71.healthunit.org')
 
 
 insert into Lives values('2015-01-02 08:00:00','2017-01-31 08:00:00','123456789','12345');
