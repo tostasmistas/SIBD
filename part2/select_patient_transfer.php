@@ -25,7 +25,7 @@
 
   $sql = "SELECT Patient.name, Patient.number
           FROM Patient
-          WHERE Patient.name = '$name'";
+          WHERE Patient.name like '%$name%'";
 
   $result = $connection->query($sql);
   if ($result == FALSE) {

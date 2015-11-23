@@ -24,14 +24,16 @@
   $name = $_REQUEST['name'];
   $number = $_REQUEST['number'];
 
-  $sql = "SELECT Reading.snum, Reading.manuf, Reading.value, Sensor.units, Reading.datetime
+  $sql = "SELECT DISTINCT Reading.snum, Reading.manuf, Reading.value, Sensor.units, Reading.datetime
           FROM Patient, Wears, Connects, Reading, Sensor
           WHERE Wears.patient = '$number'
             AND Wears.pan = Connects.pan
             AND Connects.snum = Reading.snum
             AND Connects.manuf = Reading.manuf
             AND Sensor.snum = Reading.snum
-            AND Sensor.manuf = Reading.manuf";
+            AND Sensor.manuf = Reading.manuf
+            AND Reading.datetime BETWEEN Connects.start AND Connects.end
+            AND Reading.datetime BETWEEN Wears.start AND Wears.end";
 
   $result = $connection->query($sql);
   if ($result == FALSE) {
@@ -75,14 +77,16 @@
 
   echo("<p></p>");
 
-  $sql = "SELECT Setting.snum, Setting.manuf, Setting.value, Actuator.units, Setting.datetime
+  $sql = "SELECT DISTINCT Setting.snum, Setting.manuf, Setting.value, Actuator.units, Setting.datetime
           FROM Patient, Wears, Connects, Setting, Actuator
           WHERE Wears.patient = '$number'
             AND Wears.pan = Connects.pan
             AND Connects.snum = Setting.snum
             AND Connects.manuf = Setting.manuf
             AND Actuator.snum = Setting.snum
-            AND Actuator.manuf = Setting.manuf";
+            AND Actuator.manuf = Setting.manuf
+            AND Setting.datetime BETWEEN Connects.start AND Connects.end
+            AND Setting.datetime BETWEEN Wears.start AND Wears.end";
 
   $result = $connection->query($sql);
   if ($result == FALSE) {
