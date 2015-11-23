@@ -8,7 +8,7 @@ insert into Patient values('465748931', 'António Manu', 'Da Street, n2, 4Esq, 1
 insert into Patient values('657658675', 'Zé Tó', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 
 insert into PAN values('pan99.healthunit.org', '914457220');
-insert into PAN values('pan33.healthunit.org', '845 763 207');
+insert into PAN values('pan33.healthunit.org', '845763207');
 insert into PAN values('pan88.healthunit.org', '676498532');
 insert into PAN values('pan77.healthunit.org', '456948923');
 insert into PAN values('pan66.healthunit.org', '666566754');
