@@ -10,4 +10,5 @@ AND s.snum = r.snum
 AND s.manuf = r.manuf
 AND patient = '123456789'
 AND r.datetime BETWEEN c.start AND c.end
-AND r.datetime BETWEEN w.start AND w.end;
+AND r.datetime BETWEEN w.start AND w.end
+AND (TIMESTAMPDIFF(MONTH,r.datetime, NOW()) < 6);
