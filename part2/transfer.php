@@ -24,11 +24,10 @@
   $name = $_REQUEST['name'];
   $number = $_REQUEST['number'];
 
-  $sql = "SELECT Wears.pan, Connects.snum, Connects.manuf
-          FROM Patient, Wears, Connects, Device
+  $sql = "SELECT Wears.pan
+          FROM Wears
           WHERE Wears.patient = '$number'
-            AND Wears.end = '2999-12-31 00:00:00'
-            AND Wears.pan = Connects.pan";
+            AND Wears.end = '2999-12-31 00:00:00'";
 
   $result = $connection->query($sql);
   if ($result == FALSE) {
@@ -40,77 +39,52 @@
   echo("<p><font size=\"2\">Patient Name: <strong>$name</strong></p>");
   echo("<p>Patient Number: <strong>$number</strong></font></p>");
 
-  echo("<table border=\"1\">");
-  echo("<caption><strong>Current PAN</strong></caption>");
-
   if($result->rowCount() == 0) {
-    echo("<col width=\"350\">");
-    echo("<tr><td align=\"center\">");
-    echo("This patient is not currently wearing a PAN");
-    echo("</td></tr>");
+    echo("This patient is not wearing a PAN at the moment");
   }
 
   else {
-    echo("<col width=\"170\"><col width=\"170\"><col width=\"170\"><col width=\"170\"><col width=\"170\">");
-    echo("<tr><th>Device Serial No.</th><th>Device Manufacturer</th><th>Value</th><th>Units</th><th>Date and Time</th></tr>");
-    foreach($result as $row) {
-      echo("<tr><td align=\"center\">");
-      echo($row['serialnum']);
-      echo("</td><td align=\"center\">");
-      echo($row['manufacturer']);
-      echo("</td></tr>");
+    $currentPAN = $result->fetchColumn();
+    echo("<p><font size=\"2\">Current PAN: <strong>$currentPAN</strong></font></p>");
+
+    $sql = "SELECT Wears.pan
+            FROM Wears
+            WHERE Wears.patient = '$number'
+            ORDER BY Wears.end DESC
+            LIMIT 1,1"; // para aceder à segunda linha da tabela de resultados que contém a penúltima PAN
+
+    $result = $connection->query($sql);
+    if ($result == FALSE) {
+      $info = $connection->errorInfo();
+      echo("<p>Error: {$info[2]}</p>");
+      exit();
     }
-  }
 
-  echo("</table>");
+    if($result->rowCount() == 0) {
+      echo("This patient does not have a previous PAN");
+    }
 
-  echo("<p></p>");
+    else {
+      $previousPAN = $result->fetchColumn();
+      echo("Displaying devices than can be transfered from PAN ");
+      echo("<font size=\"2\"><strong>$previousPAN</strong></font>");
+      echo(" to PAN ");
+      echo("<font size=\"2\"><strong>$currentPAN</strong></font>");
 
-  $sql = "SELECT DISTINCT Setting.snum, Setting.manuf, Setting.value, Actuator.units, Setting.datetime
-          FROM Patient, Wears, Connects, Setting, Actuator
-          WHERE Wears.patient = '$number'
-            AND Wears.pan = Connects.pan
-            AND Connects.snum = Setting.snum
-            AND Connects.manuf = Setting.manuf
-            AND Actuator.snum = Setting.snum
-            AND Actuator.manuf = Setting.manuf";
+      $sql = "SELECT Connects.snum, Connects.manuf
+              FROM Connects
+              WHERE Connects.pan = '$previousPAN'
+                AND Connects.end = '2999-12-31 00:00:00'"; // garantir que os devices ainda estao ligados à previous PAN
+    }
 
-  $result = $connection->query($sql);
-  if ($result == FALSE) {
-    $info = $connection->errorInfo();
-    echo("<p>Error: {$info[2]}</p>");
-    exit();
-  }
-
-  echo("<table border=\"1\">");
-  echo("<caption><strong>Settings</strong></caption>");
-
-  if($result->rowCount() == 0) {
-    echo("<col width=\"300\">");
-    echo("<tr><td align=\"center\">");
-    echo("No settings found for that patient");
-    echo("</td></tr>");
-  }
-
-  else {
-    echo("<col width=\"170\"><col width=\"170\"><col width=\"170\"><col width=\"170\"><col width=\"170\">");
-    echo("<tr><th>Device Serial No.</th><th>Device Manufacturer</th><th>Value</th><th>Units</th><th>Date and Time</th></tr>");
     foreach($result as $row) {
       echo("<tr><td align=\"center\">");
       echo($row['snum']);
       echo("</td><td align=\"center\">");
       echo($row['manuf']);
-      echo("</td><td align=\"center\">");
-      echo($row['value']);
-      echo("</td><td align=\"center\">");
-      echo($row['units']);
-      echo("</td><td align=\"center\">");
-      echo($row['datetime']);
       echo("</td></tr>");
     }
   }
-
-  echo("</table>");
 
   $connection = null;
 ?>
