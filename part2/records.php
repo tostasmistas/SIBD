@@ -75,7 +75,7 @@
 
   echo("<p></p>");
 
-  $sql = "SELECT DISTINCT Setting.snum, Setting.manuf, Setting.value, Actuator.units, Setting.datetime
+  $sql = "SELECT Setting.snum, Setting.manuf, Setting.value, Actuator.units, Setting.datetime
           FROM Patient, Wears, Connects, Setting, Actuator
           WHERE Wears.patient = '$number'
             AND Wears.pan = Connects.pan

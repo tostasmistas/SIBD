@@ -24,12 +24,11 @@
   $name = $_REQUEST['name'];
   $number = $_REQUEST['number'];
 
-  $sql = "SELECT Device.serialnum, Device.manufacturer
+  $sql = "SELECT Wears.pan, Connects.snum, Connects.manuf
           FROM Patient, Wears, Connects, Device
           WHERE Wears.patient = '$number'
-            AND Wears.pan = Connects.pan
-            AND Connects.snum = Device.serialnum
-            AND Connects.manuf = Device.manufacturer";
+            AND Wears.end = '2999-12-31 00:00:00'
+            AND Wears.pan = Connects.pan";
 
   $result = $connection->query($sql);
   if ($result == FALSE) {
@@ -42,12 +41,12 @@
   echo("<p>Patient Number: <strong>$number</strong></font></p>");
 
   echo("<table border=\"1\">");
-  echo("<caption><strong>Readings</strong></caption>");
+  echo("<caption><strong>Current PAN</strong></caption>");
 
   if($result->rowCount() == 0) {
-    echo("<col width=\"300\">");
+    echo("<col width=\"350\">");
     echo("<tr><td align=\"center\">");
-    echo("This patient is not currently wearinging a PAN");
+    echo("This patient is not currently wearing a PAN");
     echo("</td></tr>");
   }
 
