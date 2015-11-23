@@ -1,11 +1,11 @@
 <html>
   <head>
-    <title>Patient Records</title>
+    <title>Transfer Devices</title>
   </head>
   <body link="#ff6666">
     <font face="Helvetica">
     <h3><a href="index.html">Home</a></h3>
-    <h3><a href="patient_records.php"><font color="#66b2ff">Acess Patient Records</font></a></h3>
+    <h3><a href="transfer_devices.php"><font color="#66b2ff">Transfer Devices between PANs</font></a></h3>
 <?php
   $host = "db.ist.utl.pt";
   $user = "ist173099";
@@ -24,14 +24,12 @@
   $name = $_REQUEST['name'];
   $number = $_REQUEST['number'];
 
-  $sql = "SELECT Reading.snum, Reading.manuf, Reading.value, Sensor.units, Reading.datetime
-          FROM Patient, Wears, Connects, Reading, Sensor
+  $sql = "SELECT Device.serialnum, Device.manufacturer
+          FROM Patient, Wears, Connects, Device
           WHERE Wears.patient = '$number'
             AND Wears.pan = Connects.pan
-            AND Connects.snum = Reading.snum
-            AND Connects.manuf = Reading.manuf
-            AND Sensor.snum = Reading.snum
-            AND Sensor.manuf = Reading.manuf";
+            AND Connects.snum = Device.serialnum
+            AND Connects.manuf = Device.manufacturer";
 
   $result = $connection->query($sql);
   if ($result == FALSE) {
@@ -49,7 +47,7 @@
   if($result->rowCount() == 0) {
     echo("<col width=\"300\">");
     echo("<tr><td align=\"center\">");
-    echo("No readings found for this patient");
+    echo("This patient is not currently wearinging a PAN");
     echo("</td></tr>");
   }
 
@@ -58,15 +56,9 @@
     echo("<tr><th>Device Serial No.</th><th>Device Manufacturer</th><th>Value</th><th>Units</th><th>Date and Time</th></tr>");
     foreach($result as $row) {
       echo("<tr><td align=\"center\">");
-      echo($row['snum']);
+      echo($row['serialnum']);
       echo("</td><td align=\"center\">");
-      echo($row['manuf']);
-      echo("</td><td align=\"center\">");
-      echo($row['value']);
-      echo("</td><td align=\"center\">");
-      echo($row['units']);
-      echo("</td><td align=\"center\">");
-      echo($row['datetime']);
+      echo($row['manufacturer']);
       echo("</td></tr>");
     }
   }
@@ -97,7 +89,7 @@
   if($result->rowCount() == 0) {
     echo("<col width=\"300\">");
     echo("<tr><td align=\"center\">");
-    echo("No settings found for this patient");
+    echo("No settings found for that patient");
     echo("</td></tr>");
   }
 

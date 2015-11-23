@@ -1,11 +1,13 @@
 
 insert into Patient values('123456789', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa');
+insert into Patient values('987654321', 'Roberto', 'Da Street, n3, 1Esq, 1000-999 Lisboa');
 insert into Patient values('98765432', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('987654322', 'Toni', 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 insert into Patient values('123344444', NULL, 'Da Street, n2, 4Esq, 1300-200 Oeiras');
 
 insert into PAN values('pan99.healthunit.org', '914457220');
 insert into PAN values('pan33.healthunit.org', '845 763 207');
+insert into PAN values('pan88.healthunit.org', '676498532');
 insert into PAN values('pan99.healthunit.org', '+351 914457220'); -- should fail
 
 
@@ -46,23 +48,33 @@ insert into Period values('2015-01-02 08:00:00','2015-01-31 08:00:00');
 insert into Period values('2015-01-01 08:00:00','2015-01-01 08:00:00');
 insert into Period values('2015-02-01 08:00:00','2015-03-01 08:00:00');
 insert into Period values('2014-01-01 08:00:00','2015-01-30 08:00:00');
-insert into Period values('2012-01-01 08:00:00','2013-01-30 08:00:00');
+insert into Period values('2012-03-02 08:00:00','2013-05-01 08:00:00');
+insert into Period values('2015-05-02 08:00:00','2015-06-02 08:00:00');
+insert into Period values('2015-03-20 08:00:00','2015-04-05 08:00:00');
+insert into Period values('2015-06-03 08:00:00','2020-01-01 08:00:00');
+insert into Period values('2015-02-02 08:00:00','2015-02-10 08:00:00');
+
 
 
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
 insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:15', '60.1');
 insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:15', '60.1');
+<<<<<<< HEAD
 insert into Reading values('87650943', 'Philips', '2015-01-05 08:00:00', '60.4');
 insert into Reading values('87650943', 'Philips', '2015-01-05 08:00:00', '60.4');
 insert into Reading values('87650943', 'Philips', '2015-02-05 08:00:00', '60.4');
 insert into Reading values('87650943', 'Philips', '2015-02-10 08:00:00', '60.4');
 insert into Reading values('87650943', 'Philips', '2015-03-20 08:00:00', '60.4');
+=======
+insert into Reading values('12098765', 'Philips', '2015-01-30 08:00:15', '35');
+>>>>>>> origin/master
 
 
 insert into Setting values('35647828', 'Philips', '2015-10-09 09:00:55', '50.45');
 
 
 insert into Wears values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '123456789', 'pan99.healthunit.org');
+insert into Wears values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '987654321', 'pan88.healthunit.org');
 insert into Wears values('2015-01-03 08:00:00', '2015-01-07 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2015-01-03 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2014-12-04 08:00:00', '2015-01-04 08:00:00', '123456789', 'pan99.healthunit.org');
@@ -70,7 +82,11 @@ insert into Wears values('2015-01-01 08:00:00', '2015-01-15 08:00:00', '12345678
 insert into Wears values('2015-01-01 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2014-12-04 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '123456789', 'pan99.healthunit.org');
-insert into Wears values('2015-01-02 08:00:00', '2015-01-31 08:00:00', '987654322', 'pan99.healthunit.org');
+insert into Wears values('2015-02-01 08:00:00', '2015-03-01 08:00:00', '123456789', 'pan33.healthunit.org');
+insert into Wears values('2015-02-02 08:00:00', '2015-02-10 08:00:00', '98765432', 'pan99.healthunit.org');
+insert into Wears values('2014-03-02 08:00:00', '2015-05-01 08:00:00', '123456789', 'pan99.healthunit.org');
+insert into Wears values('2015-05-02 08:00:00', '2015-06-02 08:00:00', '98765432', 'pan99.healthunit.org');
+insert into Wears values('2015-06-03 08:00:00', '2020-01-01 08:00:00', '123456789', 'pan99.healthunit.org');
 
 
 insert into Connects values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
@@ -83,3 +99,4 @@ insert into Connects values('2015-01-01 08:00:00', '2015-02-03 08:00:00', '87650
 insert into Connects values('2014-12-04 08:00:00', '2015-02-03 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
 insert into Connects values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
 insert into Connects values('2015-01-02 08:00:00', '2015-01-31 08:00:00', '12345678', 'Philips','pan99.healthunit.org');
+insert into Connects values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '12098765', 'Philips','pan88.healthunit.org');
