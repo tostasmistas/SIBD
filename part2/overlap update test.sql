@@ -75,9 +75,9 @@ create trigger check_valid_wears_u before update on Wears
     declare count_pan_3 integer;
     
 		
-        if(new.start<old.start and new.end<old.end and new.end>old.start) then
+        if(new.start<old.start and new.end<=old.end and new.end>=old.start) then
 			select count(*) into count_patient_1 from Wears where new.patient = patient and new.start between start and end;
-            select count(*) into count_pan_1 from Wears where new.pan = pan and new.patient <>patient and new.start between start and end;
+            select count(*) into count_pan_1 from Wears where new.pan = pan and new.start between start and end;
             if(count_patient_1<>0) then
 				call that_patient_is_connected_to_a_PAN_in_that_period();
 			end if;
@@ -89,8 +89,8 @@ create trigger check_valid_wears_u before update on Wears
         if(new.start<old.start and new.end>old.end) then
 			select count(*) into count_patient_1 from Wears where new.patient = patient and new.start between start and end;
 			select count(*) into count_patient_2 from Wears where new.patient = patient and new.end between start and end;
-			select count(*) into count_pan_1 from Wears where new.pan = pan and new.patient <>patient and new.start between start and end;
-			select count(*) into count_pan_2 from Wears where new.pan = pan and new.patient <>patient and new.end between start and end;
+			select count(*) into count_pan_1 from Wears where new.pan = pan and new.start between start and end;
+			select count(*) into count_pan_2 from Wears where new.pan = pan and new.end between start and end;
 		
             if (count_patient_1 or count_patient_2 >= 1) then 
 				call that_patient_is_connected_to_a_PAN_in_that_period();
@@ -104,9 +104,9 @@ create trigger check_valid_wears_u before update on Wears
 			select count(*) into count_patient_1 from Wears where new.patient = patient and new.start between start and end;
 			select count(*) into count_patient_2 from Wears where new.patient = patient and new.end between start and end;
 			select count(*) into count_patient_3 from Wears where new.patient = patient and new.start < start and new.end > end;
-			select count(*) into count_pan_1 from Wears where new.pan = pan and new.patient <>patient and new.start between start and end;
-			select count(*) into count_pan_2 from Wears where new.pan = pan and new.patient <>patient and new.end between start and end;
-			select count(*) into count_pan_3 from Wears where new.pan = pan and new.patient <>patient and new.start < start and new.end > end;
+			select count(*) into count_pan_1 from Wears where new.pan = pan and new.start between start and end;
+			select count(*) into count_pan_2 from Wears where new.pan = pan and new.end between start and end;
+			select count(*) into count_pan_3 from Wears where new.pan = pan and new.start < start and new.end > end;
 
 			if (count_pan_1 or count_pan_2 or count_pan_3 >= 1) then
 			  call another_patient_has_that_PAN_in_that_period();
@@ -120,9 +120,9 @@ create trigger check_valid_wears_u before update on Wears
 			select count(*) into count_patient_1 from Wears where new.patient = patient and new.start between start and end;
 			select count(*) into count_patient_2 from Wears where new.patient = patient and new.end between start and end;
 			select count(*) into count_patient_3 from Wears where new.patient = patient and new.start < start and new.end > end;	
-			select count(*) into count_pan_1 from Wears where new.pan = pan and new.patient <>patient and new.start between start and end;
-			select count(*) into count_pan_2 from Wears where new.pan = pan and new.patient <>patient and new.end between start and end;
-			select count(*) into count_pan_3 from Wears where new.pan = pan and new.patient <>patient and new.start < start and new.end > end;
+			select count(*) into count_pan_1 from Wears where new.pan = pan and new.start between start and end;
+			select count(*) into count_pan_2 from Wears where new.pan = pan and new.end between start and end;
+			select count(*) into count_pan_3 from Wears where new.pan = pan and new.start < start and new.end > end;
 
 			if (count_pan_1 or count_pan_2 or count_pan_3 >= 1) then
 			  call another_patient_has_that_PAN_in_that_period();
@@ -134,7 +134,7 @@ create trigger check_valid_wears_u before update on Wears
         
         if(new.start>=old.start and new.start<=old.end and new.end>old.end) then
 			select count(*) into count_patient_2 from Wears where new.patient = patient and new.end between start and end;
-            select count(*) into count_pan_2 from Wears where new.pan = pan and new.patient <>patient and new.end between start and end;
+            select count(*) into count_pan_2 from Wears where new.pan = pan and new.end between start and end;
 			if (count_pan_2 <> 0) then
 				call another_patient_has_that_PAN_in_that_period();
 			end if;
@@ -143,11 +143,10 @@ create trigger check_valid_wears_u before update on Wears
 			end if;
 		end if;
         
-		#Update da PAN do paciente
         if (new.start=old.start and new.start=old.start) then
-			select count(*) into count_pan_1 from Wears where new.pan = pan and new.patient <>patient and new.start between start and end;
-			select count(*) into count_pan_2 from Wears where new.pan = pan and new.patient <>patient and new.end between start and end;
-			select count(*) into count_pan_3 from Wears where new.pan = pan and new.patient <>patient and new.start < start and new.end > end;
+			select count(*) into count_pan_1 from Wears where new.pan = pan and new.start between start and end;
+			select count(*) into count_pan_2 from Wears where new.pan = pan and new.end between start and end;
+			select count(*) into count_pan_3 from Wears where new.pan = pan and new.start < start and new.end > end;
 
 			if (count_pan_1 or count_pan_2 or count_pan_3 >= 1) then
 			  call another_patient_has_that_PAN_in_that_period();
