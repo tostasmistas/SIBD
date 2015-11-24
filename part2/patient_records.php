@@ -11,6 +11,7 @@
         <input type="text" name="name"/>
         <input type="submit" value="Submit"/>
       </p>
+      <p><font size="2">or just press "submit" to display all registered patients</font></p>
     </form>
     </font>
   </body>

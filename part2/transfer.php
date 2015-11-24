@@ -1,3 +1,4 @@
+<? php session_start(); ?>
 <html>
   <head>
     <title>Transfer Devices</title>
@@ -99,7 +100,7 @@
         echo("<p></p>");
 
         foreach($result as $row) {
-          echo("<input type=\"checkbox\" name=\"device_snum[]\" value=\"Brighton\"/>
+          echo("<input type=\"checkbox\" name=\"device_info[]\" value={$row['snum']}#{$row['manuf']}>
             <font size=\"2.5\"><strong>Serial Number</strong></font>: {$row['snum']}
             / <font size=\"2.5\"><strong>Manufacturer</strong></font>: {$row['manuf']}<br/>");
         }
@@ -109,7 +110,10 @@
     }
   }
 
-  $connection = null;
+  $_SESSION['s_previousPAN'] = 400;
+  //$_SESSION['s_currentPAN'] = $currentPAN;
+
+  //$connection = null;
 ?>
     </form>
     </font>
