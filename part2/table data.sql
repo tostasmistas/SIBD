@@ -29,6 +29,7 @@ insert into Device values('35647828', 'Philips', 'rotating speed');
 insert into Device values('67756535', 'Xiaomi', 'rotating speed');
 insert into Device values('97754422', 'Xiaomi', 'rotating speed');
 insert into Device values('55342299', 'Xiaomi', 'rotating speed');
+insert into Device values('45545545', 'Samsung', 'rotating speed');
 
 
 insert into Sensor values('87650943', 'Philips', 'mm Hg');
@@ -41,6 +42,7 @@ insert into Sensor values('55342299', 'Xiaomi', 'kg');
 insert into Actuator values('35647828', 'Philips', 'rpm');
 insert into Actuator values('67756535', 'Xiaomi', 'rpm');
 insert into Actuator values('97754422', 'Xiaomi', 'rpm');
+insert into Actuator values('45545545', 'Samsung', 'rpm');
 
 
 insert into Municipality values('12345', 'Lisboa');
@@ -75,7 +77,7 @@ insert into Period values('2015-07-02 08:00:00','2999-12-31 00:00:00');
 insert into Period values('2000-07-02 08:00:00','2001-12-31 00:00:00');
 insert into Period values('2013-07-02 08:00:00','2014-12-31 00:00:00');
 insert into Period values('2013-07-02 08:00:00','2999-12-31 00:00:00');
-
+insert into Period values('2015-07-02 08:00:00','2999-12-31 00:00:00');
 
 
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
@@ -133,7 +135,8 @@ insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '67756
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '97754422', 'Xiaomi','pan66.healthunit.org');
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '55342299', 'Xiaomi','pan66.healthunit.org');
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '35647828', 'Philips','pan66.healthunit.org');
-insert into Connects values('2000-07-02 08:00:00', '2001-12-31 00:00:00', '35647828', 'Philips','pan71.healthunit.org')
+insert into Connects values('2000-07-02 08:00:00', '2001-12-31 00:00:00', '35647828', 'Philips','pan71.healthunit.org');
+insert into Connects values('2015-07-02 08:00:00', '2999-12-31 00:00:00', '45545545', 'Samsung','pan66.healthunit.org');
 
 
 insert into Lives values('2015-01-02 08:00:00','2017-01-31 08:00:00','123456789','12345');

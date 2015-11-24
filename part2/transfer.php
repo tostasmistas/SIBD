@@ -4,6 +4,7 @@
   </head>
   <body link="#ff6666">
     <font face="Helvetica">
+    <form action="execute_transfer.php" method="post">
     <h3><a href="index.html">Home</a></h3>
     <h3><a href="transfer_devices.php"><font color="#66b2ff">Transfer Devices between PANs</font></a></h3>
 <?php
@@ -47,7 +48,7 @@
     $currentPAN = $result->fetchColumn();
     echo("<p><font size=\"2\">Current PAN: <strong>$currentPAN</strong></font></p>");
 
-    $sql = "SELECT Wears.pan
+    $sql = "SELECT Wears.pan, Wears.end
             FROM Wears
             WHERE Wears.patient = '$number'
             ORDER BY Wears.end DESC
@@ -65,29 +66,52 @@
     }
 
     else {
-      $previousPAN = $result->fetchColumn();
-      echo("Displaying devices than can be transfered from PAN ");
-      echo("<font size=\"2\"><strong>$previousPAN</strong></font>");
-      echo(" to PAN ");
-      echo("<font size=\"2\"><strong>$currentPAN</strong></font>");
+      $previousPAN_data = $result->fetch(PDO::FETCH_ASSOC); // indexed by column name
+      $previousPAN = $previousPAN_data["pan"];
+      $previousPAN_end = $previousPAN_data["end"];
+
+      echo("<p><font size=\"2\">Previous PAN: <strong>$previousPAN</strong></font></p>");
 
       $sql = "SELECT Connects.snum, Connects.manuf
               FROM Connects
               WHERE Connects.pan = '$previousPAN'
-                AND Connects.end = '2999-12-31 00:00:00'"; // garantir que os devices ainda estao ligados à previous PAN
-    }
+                AND Connects.start < '$previousPAN_end'
+                AND Connects.end = '2999-12-31 00:00:00'";
+                // garantir que devices foram ligados a previous PAN durante o tempo que o paciente esteve ligado a ela
+                // garantir que os devices ainda estao ligados a previous PAN
 
-    foreach($result as $row) {
-      echo("<tr><td align=\"center\">");
-      echo($row['snum']);
-      echo("</td><td align=\"center\">");
-      echo($row['manuf']);
-      echo("</td></tr>");
+      $result = $connection->query($sql);
+      if ($result == FALSE) {
+        $info = $connection->errorInfo();
+        echo("<p>Error: {$info[2]}</p>");
+        exit();
+      }
+
+      if($result->rowCount() == 0) {
+        echo("PAN <font size=\"2\"><strong>$previousPAN</strong></font> does not have any transferable devices");
+      }
+
+      else {
+        echo("Displaying devices than can be transfered from PAN ");
+        echo("<font size=\"2\"><strong>$previousPAN</strong></font>");
+        echo(" to PAN ");
+        echo("<font size=\"2\"><strong>$currentPAN</strong></font>");
+        echo("<p></p>");
+
+        foreach($result as $row) {
+          echo("<input type=\"checkbox\" name=\"device_snum[]\" value=\"Brighton\"/>
+            <font size=\"2.5\"><strong>Serial Number</strong></font>: {$row['snum']}
+            / <font size=\"2.5\"><strong>Manufacturer</strong></font>: {$row['manuf']}<br/>");
+        }
+
+        echo("<p><input type=\"submit\" value=\"Submit\"/></p>");
+      }
     }
   }
 
   $connection = null;
 ?>
+    </form>
     </font>
   </body>
 </html>
