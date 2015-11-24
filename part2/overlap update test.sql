@@ -163,12 +163,8 @@ create trigger check_valid_connects_u before update on Connects
     declare count_condition_2 integer;
     declare count_condition_3 integer;
     
-
-    select count(*) into count_condition_1 from Connects where new.snum = snum and new.manuf = manuf and new.start between start and end;
-    select count(*) into count_condition_2 from Connects where new.snum = snum and new.manuf = manuf and new.end between start and end;
-    select count(*) into count_condition_3 from Connects where new.snum = snum and new.manuf = manuf and new.start < start and new.end > end;
-
-        if(new.start<old.start and new.end<old.end and new.end>old.start) then
+		
+        if(new.start<old.start and new.end<=old.end and new.end>=old.start) then
 			select count(*) into count_condition_1 from Connects where new.snum = snum and new.manuf = manuf and new.start between start and end;
 			if(count_condition_1<>0) then
 				call that_device_is_connected_to_a_PAN_in_that_period();
@@ -178,10 +174,11 @@ create trigger check_valid_connects_u before update on Connects
         if(new.start<old.start and new.end>old.end) then
 			select count(*) into count_condition_1 from Connects where new.snum = snum and new.manuf = manuf and new.start between start and end;
 			select count(*) into count_condition_2 from Connects where new.snum = snum and new.manuf = manuf and new.end between start and end;
-    
+   
             if (count_condition_1 or count_condition_2 >= 1) then 
 				call that_device_is_connected_to_a_PAN_in_that_period();
 			end if;
+
 		end if;
         
         if(new.start<old.start and new.end<old.start) then
@@ -189,7 +186,8 @@ create trigger check_valid_connects_u before update on Connects
 			select count(*) into count_condition_2 from Connects where new.snum = snum and new.manuf = manuf and new.end between start and end;
 			select count(*) into count_condition_3 from Connects where new.snum = snum and new.manuf = manuf and new.start < start and new.end > end;
 
-			if (count_condition_1 or count_condition_2 or count_condition_3 >= 1) then 
+    
+			if (count_condition_1 or count_condition2 or count_condition_3 >= 1) then 
 				call that_device_is_connected_to_a_PAN_in_that_period();
             end if;
 		end if;
@@ -199,17 +197,20 @@ create trigger check_valid_connects_u before update on Connects
 			select count(*) into count_condition_2 from Connects where new.snum = snum and new.manuf = manuf and new.end between start and end;
 			select count(*) into count_condition_3 from Connects where new.snum = snum and new.manuf = manuf and new.start < start and new.end > end;
 
-			if (count_condition_1 or count_conditon_2 or count_condition_3 >= 1) then 
+    
+			if (count_condition_1 or count_condition_2 or count_condition_3 >= 1) then 
 				call that_device_is_connected_to_a_PAN_in_that_period();
             end if;
 		end if;
         
         if(new.start>=old.start and new.start<=old.end and new.end>old.end) then
 			select count(*) into count_condition_2 from Connects where new.snum = snum and new.manuf = manuf and new.end between start and end;
+			
 			if(count_condition_2<>0) then
-				call that_patient_is_connected_to_a_PAN_in_that_period();
+				call that_device_is_connected_to_a_PAN_in_that_period();
 			end if;
 		end if;
-
 end$$
 delimiter ;
+
+
