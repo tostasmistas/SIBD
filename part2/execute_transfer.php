@@ -1,4 +1,4 @@
-<? php session_start(); ?>
+<?php session_start(); ?>
 <html>
   <head>
     <title>Transfer Devices</title>
@@ -24,13 +24,15 @@
 
   $snum = array();
   $manuf = array();
+  $start = array();
 
-  foreach ($_REQUEST as $info => $value) { //$_REQUEST is an associative array (key => value)
+  foreach ($_REQUEST as $info => $value) { // $_REQUEST is an associative array (key => value)
     if ($info == 'device_info') {
       foreach($_REQUEST[$info] as $device_info) {
         $device_info_pieces = explode("#", $device_info);
-        $snum[] = $device_info_pieces[0]; //snum
-        $manuf[] = $device_info_pieces[1]; //manuf
+        $snum[] = $device_info_pieces[0]; // snum
+        $manuf[] = $device_info_pieces[1]; // manuf
+        $start[] = $device_info_pieces[2]; // start
       }
     }
     else {
@@ -42,20 +44,52 @@
     echo("No transferable devices were selected");
   }
 
-  print_r($_SESSION);
+  else {
+    for ($i = 0; $i < count($snum); $i++) {
+      $sql = "INSERT INTO Period VALUES ('$start[$i]', NOW())"; // para desligar o device da previous PAN
+      $result = $connection->query($sql);
+      if ($result == FALSE) {
+        $info = $connection->errorInfo();
+        echo("<p>Error: {$info[2]}</p>");
+        exit();
+      }
 
-  /*$balance = $_REQUEST['balance'];
-  $sql = "UPDATE account SET balance = $balance WHERE account_number =
-  '$account_number'";
-  echo("<p>$sql</p>");
-  $nrows = $connection->exec($sql);
-  echo("<p>Rows updated: $nrows</p>");
+      $sql = "UPDATE Connects SET end = NOW()
+              WHERE snum = '$snum[$i]'
+                AND manuf = '$manuf[$i]'
+                AND end = '2999-12-31 00:00:00'";
+      $result = $connection->query($sql);
+      if ($result == FALSE) {
+        $info = $connection->errorInfo();
+        echo("<p>Error: {$info[2]}</p>");
+        exit();
+      }
+
+      $sql = "INSERT INTO Period VALUES (NOW(), '2999-12-31 00:00:00')"; // para ligar o device a current PAN
+      $result = $connection->query($sql);
+      if ($result == FALSE) {
+        $info = $connection->errorInfo();
+        echo("<p>Error: {$info[2]}</p>");
+        exit();
+      }
+
+      $sql = "INSERT INTO Connects VALUES(NOW(), '2999-12-31 00:00:00', '$snum[$i]', '$manuf[$i]', '{$_SESSION['s_currentPAN']}')";
+      $result = $connection->query($sql);
+      if ($result == FALSE) {
+        $info = $connection->errorInfo();
+        echo("<p>Error: {$info[2]}</p>");
+        //echo("<p>Unable to transfer device from PAN <font size=\"2\"><strong>$_SESSION['s_previousPAN']</strong></font> to PAN <font size=\"2\"><strong>$_SESSION['s_currentPAN']</strong></font></p>");
+        exit();
+      }
+    }
+    echo("<p>update with sucess</p>");
+  }
 
   session_unset(); // remove all session variables
 
   session_destroy(); // destroy the session
 
-  $connection = null;*/
+  $connection = null;
 ?>
     </font>
   </body>

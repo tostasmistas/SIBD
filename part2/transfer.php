@@ -1,4 +1,4 @@
-<? php session_start(); ?>
+<?php session_start(); ?>
 <html>
   <head>
     <title>Transfer Devices</title>
@@ -73,13 +73,14 @@
 
       echo("<p><font size=\"2\">Previous PAN: <strong>$previousPAN</strong></font></p>");
 
-      $sql = "SELECT Connects.snum, Connects.manuf
+      $sql = "SELECT Connects.snum, Connects.manuf, Connects.start
               FROM Connects
               WHERE Connects.pan = '$previousPAN'
                 AND Connects.start < '$previousPAN_end'
                 AND Connects.end = '2999-12-31 00:00:00'";
                 // garantir que devices foram ligados a previous PAN durante o tempo que o paciente esteve ligado a ela
                 // garantir que os devices ainda estao ligados a previous PAN
+                // preciso do start para depois poder inserir na tabela Period[start, now] para desligar da previous PAN
 
       $result = $connection->query($sql);
       if ($result == FALSE) {
@@ -100,7 +101,7 @@
         echo("<p></p>");
 
         foreach($result as $row) {
-          echo("<input type=\"checkbox\" name=\"device_info[]\" value={$row['snum']}#{$row['manuf']}>
+          echo("<input type=\"checkbox\" name=\"device_info[]\" value=\"{$row['snum']}#{$row['manuf']}#{$row['start']}\"/>
             <font size=\"2.5\"><strong>Serial Number</strong></font>: {$row['snum']}
             / <font size=\"2.5\"><strong>Manufacturer</strong></font>: {$row['manuf']}<br/>");
         }
@@ -110,10 +111,10 @@
     }
   }
 
-  $_SESSION['s_previousPAN'] = 400;
-  //$_SESSION['s_currentPAN'] = $currentPAN;
+  $_SESSION['s_previousPAN'] = $previousPAN;
+  $_SESSION['s_currentPAN'] = $currentPAN;
 
-  //$connection = null;
+  $connection = null;
 ?>
     </form>
     </font>
