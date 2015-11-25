@@ -27,6 +27,7 @@ insert into PAN values('pan99.healthunit.org', '+351 914457220'); -- should fail
 insert into PAN values('pan01.healthunit.org', '212121212');
 insert into PAN values('pan02.healthunit.org', '222121212');
 insert into PAN values('pan03.healthunit.org', '234121212');
+insert into PAN values('pan04.healthunit.org', '212340988');
 
 insert into Device values('87650943', 'Philips', 'blood pressure');
 insert into Device values('98765432', 'Philips', 'blood pressure');
@@ -45,7 +46,8 @@ insert into Device values('12369901', 'Sony', 'rotating speed');
 insert into Device values('12369902', 'Xiaomi', 'rotating speed');
 insert into Device values('12369903', 'Philips', 'rotating speed');
 insert into Device values('12369904', 'Philips', 'rotating speed');
-
+insert into Device values('66666666', 'Philips', 'scale');
+insert into Device values('77777777', 'Matsui', 'rotating speed');
 
 
 insert into Sensor values('87650943', 'Philips', 'mm Hg');
@@ -55,8 +57,9 @@ insert into Sensor values('12098765', 'Philips', 'kg');
 insert into Sensor values('11111111', 'Xiaomi', 'kg');
 insert into Sensor values('22222222', 'Xiaomi', 'kg');
 insert into Sensor values('33333333', 'Xiaomi', 'kg');
+insert into Sensor values('66666666', 'Philips', 'kg');
 
-
+insert into Actuator values('77777777', 'Matsui', 'rpm');
 insert into Actuator values('35647828', 'Philips', 'rpm');
 insert into Actuator values('67756535', 'Xiaomi', 'rpm');
 insert into Actuator values('97754422', 'Xiaomi', 'rpm');
@@ -124,6 +127,14 @@ insert into Period values('2015-08-26 00:00:00','2999-12-31 00:00:00');
 insert into Period values('2015-09-17 00:00:00','2999-12-31 00:00:00');
 insert into Period values('2015-09-17 00:00:00', '2999-12-31 00:00:00');
 
+insert into Period values('2017-07-15 08:00:00','2999-12-31 00:00:00');
+insert into Period values('2017-08-16 09:00:55','2999-12-31 00:00:00');
+insert into Period values('2017-08-30 08:00:15','2999-12-31 00:00:00');
+insert into Period values('2017-08-17 08:05:52','2999-12-31 00:00:00');
+insert into Period values('2017-01-15 00:00:00','2999-12-31 00:00:00');
+insert into Period values('2017-01-15 00:00:00','2999-12-31 00:00:00');
+insert into Period values('2017-01-16 00:00:00','2999-12-31 00:00:00');
+insert into Period values('2017-01-14 00:00:00','2999-12-31 00:00:00');
 
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
 insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:15', '60.1');
@@ -136,8 +147,13 @@ insert into Reading values('87650943', 'Philips', '2015-02-05 08:00:00', '60.4')
 insert into Reading values('87650943', 'Philips', '2015-02-10 08:00:00', '60.4');
 insert into Reading values('87650943', 'Philips', '2015-03-20 08:00:00', '60.4');
 insert into Reading values('12098765', 'Philips', '2015-01-30 08:00:15', '35');
+insert into Reading values('66666666', 'Philips', '2017-07-15 08:00:00', '60');
+insert into Reading values('66666666', 'Philips', '2017-08-30 08:00:15', '80');
+insert into Reading values('66666666', 'Philips', '2017-01-14 00:00:00', '90');
+insert into Reading values('66666666', 'Philips', '2017-01-15 00:00:00', '90');
 
-
+insert into Setting values('77777777', 'Matsui', '2017-08-16 09:00:55', '50.45');
+insert into Setting values('77777777', 'Matsui', '2017-08-17 08:05:52', '30.40');
 insert into Setting values('35647828', 'Philips', '2015-10-09 09:00:55', '50.45');
 insert into Setting values('12369901', 'Sony', '2015-09-18 08:05:52', '30.40');
 insert into Setting values('12369901', 'Sony', '2015-09-15 08:05:52', '30.43');
@@ -216,6 +232,9 @@ insert into Connects values('2015-09-17 00:00:00', '2999-12-31 00:00:00', '12369
 
 insert into Connects values('2015-01-02 08:00:00', '2999-12-31 00:00:00', '98765432', 'Philips','pan99.healthunit.org');
 
+insert into Wears values('2017-01-16 00:00:00', '2999-12-31 00:00:00', '567891234', 'pan04.healthunit.org');
+insert into Connects values('2017-01-15 00:00:00', '2999-12-31 00:00:00', '77777777', 'Matsui','pan04.healthunit.org');
+insert into Connects values('2017-01-15 00:00:00', '2999-12-31 00:00:00' ,'66666666', 'Philips','pan04.healthunit.org');
 
 insert into Lives values('2015-01-02 08:00:00','2999-12-31 00:00:00','123456789','12345');
 insert into Lives values('2015-01-02 08:00:00','2999-12-31 00:00:00','987654321','12345');
