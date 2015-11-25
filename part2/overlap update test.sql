@@ -10,7 +10,7 @@ create trigger check_valid_period_i before insert on Period
   begin
 	#end tem de ser maior que start
     if new.start>new.end then 
-		call wrongPeriod();
+		call period_not_valid();
 	end if;
 end$$
 delimiter ;
@@ -198,7 +198,7 @@ create trigger check_valid_connects_u before update on Connects
 			select count(*) into count_condition_3 from Connects where new.snum = snum and new.manuf = manuf and new.start < start and new.end > end;
 
     
-			if (count_condition_1 or count_condition_2 or count_condition_3 >= 1) then 
+			if (count_condition_1 or count_condition_2 or count_condition_3 >= 1) then
 				call that_device_is_connected_to_a_PAN_in_that_period();
             end if;
 		end if;
