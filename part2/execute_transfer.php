@@ -51,12 +51,25 @@
 
   else {
     for ($i = 0; $i < count($snum); $i++) {
-      $sql = "INSERT INTO Period VALUES ('$start[$i]', NOW())"; // para desligar o device da previous PAN
+      $sql = "SELECT Period.start, Period.end
+              FROM Period
+              WHERE Period.start = '$start[$i]'
+                AND Period.end = NOW()"; // verificar se o periodo ja existe na tabela, se sim entao saltar o insert
       $result = $connection->query($sql);
       if ($result == FALSE) {
         $info = $connection->errorInfo();
         echo("<p>Error: {$info[2]}</p>");
         exit();
+      }
+
+      if($result->rowCount() == 0) { // significa que o periodo nao existe e tem de ser inserido na tabela
+        $sql = "INSERT INTO Period VALUES ('$start[$i]', NOW())"; // para desligar o device da previous PAN
+        $result = $connection->query($sql);
+        if ($result == FALSE) {
+          $info = $connection->errorInfo();
+          echo("<p>Error: {$info[2]}</p>");
+          exit();
+        }
       }
 
       $sql = "UPDATE Connects SET end = NOW()
@@ -70,12 +83,25 @@
         exit();
       }
 
-      $sql = "INSERT INTO Period VALUES (DATE_ADD(NOW(), INTERVAL 1 SECOND), '2999-12-31 00:00:00')"; // para ligar o device a current PAN
+      $sql = "SELECT Period.start, Period.end
+              FROM Period
+              WHERE Period.start = DATE_ADD(NOW(), INTERVAL 1 SECOND)
+                AND Period.end = '2999-12-31 00:00:00'"; // verificar se o periodo ja existe na tabela, se sim entao saltar o insert
       $result = $connection->query($sql);
       if ($result == FALSE) {
         $info = $connection->errorInfo();
         echo("<p>Error: {$info[2]}</p>");
         exit();
+      }
+
+      if($result->rowCount() == 0) { // significa que o periodo nao existe e tem de ser inserido na tabela
+        $sql = "INSERT INTO Period VALUES (DATE_ADD(NOW(), INTERVAL 1 SECOND), '2999-12-31 00:00:00')"; // para ligar o device a current PAN
+        $result = $connection->query($sql);
+        if ($result == FALSE) {
+          $info = $connection->errorInfo();
+          echo("<p>Error: {$info[2]}</p>");
+          exit();
+        }
       }
 
       $sql = "INSERT INTO Connects VALUES(DATE_ADD(NOW(), INTERVAL 1 SECOND), '2999-12-31 00:00:00', '$snum[$i]', '$manuf[$i]', '{$_SESSION['s_currentPAN']}')";
