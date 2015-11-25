@@ -118,10 +118,10 @@ insert into Period values('2015-07-14 00:00:00','2015-07-16 00:00:00');
 insert into Period values('2015-02-01 00:00:00','2015-03-29 00:00:00');
 
 
-insert into Period values('2015-09-15 00:00:00','2999 -12-31 00:00:00');
-insert into Period values('2015-08-25 00:00:00','2999 -12-31 00:00:00');
-insert into Period values('2015-08-26 00:00:00','2999 -12-31 00:00:00');
-insert into Period values('2015-09-17 00:00:00','2999 -12-31 00:00:00');
+insert into Period values('2015-09-15 00:00:00','2999-12-31 00:00:00');
+insert into Period values('2015-08-25 00:00:00','2999-12-31 00:00:00');
+insert into Period values('2015-08-26 00:00:00','2999-12-31 00:00:00');
+insert into Period values('2015-09-17 00:00:00','2999-12-31 00:00:00');
 insert into Period values('2015-09-17 00:00:00', '2999-12-31 00:00:00');
 
 
