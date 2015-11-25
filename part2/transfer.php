@@ -111,6 +111,8 @@
     }
   }
 
+  $_SESSION['s_pname'] = $name;
+  $_SESSION['s_pnum'] = $number;
   $_SESSION['s_previousPAN'] = $previousPAN;
   $_SESSION['s_currentPAN'] = $currentPAN;
 

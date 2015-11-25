@@ -40,6 +40,11 @@
     }
   }
 
+  echo("<p><font size=\"2\">Patient Name: <strong>"."{$_SESSION['s_pname']}"."</strong></font></p>");
+  echo("<p><font size=\"2\">Patient Number: <strong>"."{$_SESSION['s_pnum']}"."</strong></font></p>");
+  echo("<p><font size=\"2\">Current PAN: <strong>"."{$_SESSION['s_currentPAN']}"."</strong></font></p>");
+  echo("<p><font size=\"2\">Previous PAN: <strong>"."{$_SESSION['s_previousPAN']}"."</strong></font></p>");
+
   if(empty($snum)) {
     echo("No transferable devices were selected");
   }
@@ -79,14 +84,40 @@
         $info = $connection->errorInfo();
         echo("<p>Error: {$info[2]}</p>");
         echo("Error in transfering devices from PAN ");
-        //echo("<font size=\"2\"><strong>$_SESSION['s_previousPAN']</strong></font>");
+        echo("<font size=\"2\"><strong>"."{$_SESSION['s_previousPAN']}"."</strong></font>");
         echo(" to PAN ");
-        //echo("<font size=\"2\"><strong>$_SESSION['s_currentPAN']</strong></font>");
+        echo("<font size=\"2\"><strong>"."{$_SESSION['s_currentPAN']}"."</strong></font>");
         echo("<p></p>");
         exit();
       }
     }
-    echo("<p>update with sucess</p>");
+    echo("<p>Update successful!</p>");
+
+    $sql = "SELECT Connects.snum, Connects.manuf
+            FROM Connects
+            WHERE Connects.end = '2999-12-31 00:00:00'
+              AND Connects.pan = '{$_SESSION['s_currentPAN']}'";
+
+    $result = $connection->query($sql);
+    if ($result == FALSE) {
+      $info = $connection->errorInfo();
+      echo("<p>Error: {$info[2]}</p>");
+      exit();
+    }
+
+    echo("<table border=\"1\">");
+    echo("<caption><strong>Current State of the Patient's PAN</strong></caption>");
+
+    echo("<col width=\"170\"><col width=\"170\">");
+    echo("<tr><th>Device Serial No.</th><th>Device Manufacturer</th></tr>");
+    foreach($result as $row) {
+      echo("<tr><td align=\"center\">");
+      echo($row['snum']);
+      echo("</td><td align=\"center\">");
+      echo($row['manuf']);
+      echo("</td></tr>");
+    }
+    echo("</table>");
   }
 
   session_unset(); // remove all session variables
