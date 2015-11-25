@@ -52,20 +52,8 @@
     echo("No transferable devices were selected");
   }
 
-else {
-    /*$sql = "SELECT Connects.snum, Connects.manuf
-            FROM Connects
-            WHERE Connects.end = '2999-12-31 00:00:00'
-              AND Connects.pan = '{$_SESSION['s_currentPAN']}'";
-
-    $result = $connection->query($sql);
-    if ($result == FALSE) {
-      $info = $connection->errorInfo();
-      echo("<p>Error: {$info[2]}</p>");
-      exit();
-    }*/
-
-    $sql = "CREATE TABLE tablePreviousPAN(snum numeric(8,0), manuf varchar(255))";
+  else {
+    $sql = "CREATE TABLE tableBeforePAN(snum numeric(8,0), manuf varchar(255))";
     $result = $connection->query($sql);
     if ($result == FALSE) {
       $info = $connection->errorInfo();
@@ -73,7 +61,7 @@ else {
       exit();
     }
 
-    $sql = "INSERT INTO tablePreviousPAN (snum, manuf)
+    $sql = "INSERT INTO tableBeforePAN (snum, manuf)
             SELECT Connects.snum, Connects.manuf
             FROM Connects
             WHERE Connects.end = '2999-12-31 00:00:00'
@@ -85,7 +73,7 @@ else {
       exit();
     }
 
-    $sql = "SELECT * FROM tablePreviousPAN";
+    $sql = "SELECT * FROM tableBeforePAN";
     $result = $connection->query($sql);
     if ($result == FALSE) {
       $info = $connection->errorInfo();
@@ -97,9 +85,9 @@ else {
     echo("<caption><strong>Previous State of the Patient's PAN</strong></caption>");
 
     if($result->rowCount() == 0) {
-        echo("<col width=\"300\">");
+        echo("<col width=\"400\">");
         echo("<tr><td align=\"center\">");
-        echo("No devices connected to this PAN");
+        echo("No devices connected to this PAN before transfer");
         echo("</td></tr>");
     }
 
@@ -189,8 +177,8 @@ else {
       }
     }
     echo("<p>Update successful!</p>");
-    
-    $sql = "CREATE TABLE tableCurrentPAN(snum numeric(8,0), manuf varchar(255))";
+
+    $sql = "CREATE TABLE tableAfterPAN(snum numeric(8,0), manuf varchar(255))";
     $result = $connection->query($sql);
     if ($result == FALSE) {
       $info = $connection->errorInfo();
@@ -198,12 +186,12 @@ else {
       exit();
     }
 
-    $sql = "INSERT INTO tableCurrentPAN (snum, manuf)
+    $sql = "INSERT INTO tableAfterPAN (snum, manuf)
             SELECT Connects.snum, Connects.manuf
             FROM Connects
             WHERE Connects.end = '2999-12-31 00:00:00'
               AND Connects.pan = '{$_SESSION['s_currentPAN']}'";
-              
+
     $result = $connection->query($sql);
     if ($result == FALSE) {
       $info = $connection->errorInfo();
@@ -211,7 +199,17 @@ else {
       exit();
     }
 
-    $sql = "SELECT * FROM tableCurrentPAN";
+    $sql = "SELECT * FROM tableAfterPAN";
+    $result = $connection->query($sql);
+    if ($result == FALSE) {
+      $info = $connection->errorInfo();
+      echo("<p>Error: {$info[2]}</p>");
+      exit();
+    }
+
+    $sql = "SELECT DISTINCT snum, manuf
+            FROM tableAfterPAN
+            WHERE (snum, manuf) NOT IN (SELECT DISTINCT snum, manuf from tableBeforePAN)"; // devices que foram inseridos
     $result = $connection->query($sql);
     if ($result == FALSE) {
       $info = $connection->errorInfo();
@@ -220,10 +218,26 @@ else {
     }
 
     echo("<table border=\"1\">");
-    echo("<caption><strong>Current State of the Patient's PAN</strong></caption>");
+    echo("<caption><strong>Current State of the Patient's PAN</caption>");
 
     echo("<col width=\"170\"><col width=\"170\">");
     echo("<tr><th>Device Serial No.</th><th>Device Manufacturer</th></tr>");
+    foreach($result as $row) {
+      echo("<tr><td align=\"center\"><font color=\"#4d9933\">");
+      echo($row['snum']);
+      echo("</font></td><td align=\"center\"><font color=\"#4d9933\">");
+      echo($row['manuf']);
+      echo("</font></td></tr>");
+    }
+
+    $sql = "SELECT * FROM tableBeforePAN"; // devices que ja estavam na PAN antes da transferencia
+    $result = $connection->query($sql);
+    if ($result == FALSE) {
+      $info = $connection->errorInfo();
+      echo("<p>Error: {$info[2]}</p>");
+      exit();
+    }
+
     foreach($result as $row) {
       echo("<tr><td align=\"center\">");
       echo($row['snum']);
@@ -231,12 +245,10 @@ else {
       echo($row['manuf']);
       echo("</td></tr>");
     }
+
     echo("</table>");
-    }
-    
-    $sql = "SELECT DISTINCT snum, manuf
-            FROM tableCurrentPAN
-            WHERE (snum, manuf) NOT IN (SELECT DISTINCT snum, manuf from tablePreviousPAN)";      
+
+    $sql = "DROP TABLE IF EXISTS tableBeforePAN";
     $result = $connection->query($sql);
     if ($result == FALSE) {
       $info = $connection->errorInfo();
@@ -244,36 +256,16 @@ else {
       exit();
     }
 
-    echo("<table border=\"1\">");
-
-        echo("<col width=\"170\"><col width=\"170\">");
-        echo("<tr><th>Device Serial No.</th><th>Device Manufacturer</th></tr>");
-        foreach($result as $row) {
-          echo("<tr><td align=\"center\">");
-          echo($row['snum']);
-          echo("</td><td align=\"center\">");
-          echo($row['manuf']);
-          echo("</td></tr>");
-        }
-        echo("</table>");
-
-    $sql = "DROP TABLE IF EXISTS tablePreviousPAN";
+    $sql = "DROP TABLE IF EXISTS tableAfterPAN";
     $result = $connection->query($sql);
     if ($result == FALSE) {
       $info = $connection->errorInfo();
       echo("<p>Error: {$info[2]}</p>");
       exit();
     }
-    
-    $sql = "DROP TABLE IF EXISTS tableCurrentPAN";
-    $result = $connection->query($sql);
-    if ($result == FALSE) {
-      $info = $connection->errorInfo();
-      echo("<p>Error: {$info[2]}</p>");
-      exit();
-    }
+  }
 
-    $connection = null;
+  $connection = null;
 ?>
     </font>
   </body>

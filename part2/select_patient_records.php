@@ -43,7 +43,7 @@
     echo("Displaying results for patients named <strong>$name</strong>:");
     echo("<p></p>");
     echo("<table border=\"0\" cellspacing=\"10\">\n");
-    echo("<col width=\"100\"><col width=\"100\"><col width=\"100\">");
+    echo("<col width=\"170\"><col width=\"100\"><col width=\"120\">");
     echo("<tr><th>Name</th><th>Number</th></tr>");
     foreach($result as $row) {
       echo("<tr>\n");
