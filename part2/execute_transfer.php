@@ -65,7 +65,7 @@
         exit();
       }
 
-      $sql = "INSERT INTO Period VALUES (NOW(), '2999-12-31 00:00:00')"; // para ligar o device a current PAN
+      $sql = "INSERT INTO Period VALUES (DATE_ADD(NOW(), INTERVAL 1 SECOND), '2999-12-31 00:00:00')"; // para ligar o device a current PAN
       $result = $connection->query($sql);
       if ($result == FALSE) {
         $info = $connection->errorInfo();
@@ -73,12 +73,16 @@
         exit();
       }
 
-      $sql = "INSERT INTO Connects VALUES(NOW(), '2999-12-31 00:00:00', '$snum[$i]', '$manuf[$i]', '{$_SESSION['s_currentPAN']}')";
+      $sql = "INSERT INTO Connects VALUES(DATE_ADD(NOW(), INTERVAL 1 SECOND), '2999-12-31 00:00:00', '$snum[$i]', '$manuf[$i]', '{$_SESSION['s_currentPAN']}')";
       $result = $connection->query($sql);
       if ($result == FALSE) {
         $info = $connection->errorInfo();
         echo("<p>Error: {$info[2]}</p>");
-        //echo("<p>Unable to transfer device from PAN <font size=\"2\"><strong>$_SESSION['s_previousPAN']</strong></font> to PAN <font size=\"2\"><strong>$_SESSION['s_currentPAN']</strong></font></p>");
+        echo("Error in transfering devices from PAN ");
+        //echo("<font size=\"2\"><strong>$_SESSION['s_previousPAN']</strong></font>");
+        echo(" to PAN ");
+        //echo("<font size=\"2\"><strong>$_SESSION['s_currentPAN']</strong></font>");
+        echo("<p></p>");
         exit();
       }
     }
