@@ -56,7 +56,7 @@ create table Reading
    (snum		  numeric(8,0),
     manuf     varchar(255),
     datetime  datetime,
-    value     numeric(5,2) NOT NULL,  -- values read from the sensors have 5 total digits and 2 fractional digits
+    value     numeric(5,2),  -- values read from the sensors have 5 total digits and 2 fractional digits
     primary key(snum, manuf, datetime),
     foreign key(snum, manuf) references Sensor(snum, manuf));
 
