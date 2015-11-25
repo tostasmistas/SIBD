@@ -128,6 +128,8 @@ insert into Period values('2015-09-17 00:00:00', '2999-12-31 00:00:00');
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
 insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:15', '60.1');
 insert into Reading values('98765432', 'Philips', '2015-10-09 08:00:15', '60.1');
+insert into Reading values('98765432', 'Philips', '2015-10-05 08:00:15', '60.3');
+insert into Reading values('98765432', 'Philips', '2015-10-01 08:00:15', '60.0');
 insert into Reading values('87650943', 'Philips', '2015-01-05 08:00:00', '60.4');
 insert into Reading values('87650943', 'Philips', '2015-01-05 08:00:00', '60.4');
 insert into Reading values('87650943', 'Philips', '2015-02-05 08:00:00', '60.4');
@@ -153,7 +155,6 @@ insert into Wears values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '12345678
 insert into Wears values('2015-02-01 08:00:00', '2015-03-01 08:00:00', '123456789', 'pan33.healthunit.org');
 insert into Wears values('2015-02-02 08:00:00', '2015-02-10 08:00:00', '98765432', 'pan99.healthunit.org'); 
 insert into Wears values('2014-03-02 08:00:00', '2015-05-01 08:00:00', '123456789', 'pan99.healthunit.org'); 
-insert into Wears values('2015-05-02 08:00:00', '2015-06-02 08:00:00', '98765432', 'pan99.healthunit.org'); 
 insert into Wears values('2015-06-03 08:00:00', '2999-12-31 00:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2015-06-03 08:00:00', '2999-12-31 00:00:00', '987654321', 'pan88.healthunit.org');
 insert into Wears values('2015-07-02 08:00:00', '2999-12-31 00:00:00', '987654322', 'pan33.healthunit.org');
@@ -212,6 +213,8 @@ insert into Connects values('2015-02-01 00:00:00', '2015-03-29 00:00:00', '12369
 insert into Connects values('2015-08-25 00:00:00', '2999-12-31 00:00:00', '12369902', 'Xiaomi','pan01.healthunit.org');
 insert into Connects values('2015-08-26 00:00:00', '2999-12-31 00:00:00', '12369903', 'Philips','pan01.healthunit.org');
 insert into Connects values('2015-09-17 00:00:00', '2999-12-31 00:00:00', '12369901', 'Sony','pan02.healthunit.org');
+
+insert into Connects values('2015-01-02 08:00:00', '2999-12-31 00:00:00', '98765432', 'Philips','pan99.healthunit.org');
 
 
 insert into Lives values('2015-01-02 08:00:00','2999-12-31 00:00:00','123456789','12345');
