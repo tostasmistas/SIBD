@@ -265,6 +265,8 @@
     }
   }
 
+  session_destroy();
+
   $connection = null;
 ?>
     </font>
