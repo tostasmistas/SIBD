@@ -133,7 +133,7 @@ insert into Reading values('87650943', 'Philips', '2015-02-05 08:00:00', '60.4')
 insert into Reading values('87650943', 'Philips', '2015-02-10 08:00:00', '60.4');
 insert into Reading values('87650943', 'Philips', '2015-03-20 08:00:00', '60.4');
 insert into Reading values('12098765', 'Philips', '2015-01-30 08:00:15', '35');
-
+insert into Reading values('33333333', 'Xiaomi', '2015-09-18 08:05:52', '80');
 
 insert into Setting values('35647828', 'Philips', '2015-10-09 09:00:55', '50.45');
 insert into Setting values('12369901', 'Sony', '2015-09-18 08:05:52', '30.40');
@@ -211,7 +211,7 @@ insert into Connects values('2015-02-01 00:00:00', '2015-03-29 00:00:00', '12369
 insert into Connects values('2015-08-25 00:00:00', '2999-12-31 23:59:59', '12369902', 'Xiaomi','pan01.healthunit.org');
 insert into Connects values('2015-08-26 00:00:00', '2999-12-31 23:59:59', '12369903', 'Philips','pan01.healthunit.org');
 insert into Connects values('2015-09-17 00:00:00', '2999-12-31 23:59:59', '12369901', 'Sony','pan02.healthunit.org');
-
+insert into Connects values('2015-08-17 00:00:00', '2999-12-31 23:59:59', '33333333', 'Xiaomi', 'pan02.healthunit.org');
 
 insert into Lives values('2015-01-02 08:00:00','2017-01-31 08:00:00','123456789','12345');
 insert into Lives values('2015-01-02 08:00:00','2017-01-31 08:00:00','987654321','12345');
