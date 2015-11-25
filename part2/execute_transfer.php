@@ -8,6 +8,9 @@
     <h3><a href="index.html">Home</a></h3>
     <h3><a href="transfer_devices.php"><font color="#66b2ff">Transfer Devices between PANs</font></a></h3>
 <?php
+  ini_set('display_errors', 'On');
+  error_reporting(E_ALL);
+
   $host = "db.ist.utl.pt";
   $user = "ist173099";
   $pass = "mile6613";
@@ -51,10 +54,12 @@
 
   else {
     for ($i = 0; $i < count($snum); $i++) {
+      $now = new DateTime();
+      $nowFormatted = $now->format('Y-m-d H:i:s');
       $sql = "SELECT Period.start, Period.end
               FROM Period
               WHERE Period.start = '$start[$i]'
-                AND Period.end = NOW()"; // verificar se o periodo ja existe na tabela, se sim entao saltar o insert
+                AND Period.end = '$nowFormatted'"; // verificar se o periodo ja existe na tabela, se sim entao saltar o insert
       $result = $connection->query($sql);
       if ($result == FALSE) {
         $info = $connection->errorInfo();
@@ -63,7 +68,7 @@
       }
 
       if($result->rowCount() == 0) { // significa que o periodo nao existe e tem de ser inserido na tabela
-        $sql = "INSERT INTO Period VALUES ('$start[$i]', NOW())"; // para desligar o device da previous PAN
+        $sql = "INSERT INTO Period VALUES ('$start[$i]', '$nowFormatted')"; // para desligar o device da previous PAN
         $result = $connection->query($sql);
         if ($result == FALSE) {
           $info = $connection->errorInfo();
@@ -72,7 +77,7 @@
         }
       }
 
-      $sql = "UPDATE Connects SET end = NOW()
+      $sql = "UPDATE Connects SET end = '$nowFormatted'
               WHERE snum = '$snum[$i]'
                 AND manuf = '$manuf[$i]'
                 AND end = '2999-12-31 00:00:00'";
@@ -82,10 +87,12 @@
         echo("<p>Error: {$info[2]}</p>");
         exit();
       }
-
+  
+      $nowplusone = $now->add(new DateInterval('PT1S'));
+      $nowplusoneFormatted = $nowplusone->format('Y-m-d H:i:s');
       $sql = "SELECT Period.start, Period.end
               FROM Period
-              WHERE Period.start = DATE_ADD(NOW(), INTERVAL 1 SECOND)
+              WHERE Period.start = '$nowplusoneFormatted'
                 AND Period.end = '2999-12-31 00:00:00'"; // verificar se o periodo ja existe na tabela, se sim entao saltar o insert
       $result = $connection->query($sql);
       if ($result == FALSE) {
@@ -95,7 +102,7 @@
       }
 
       if($result->rowCount() == 0) { // significa que o periodo nao existe e tem de ser inserido na tabela
-        $sql = "INSERT INTO Period VALUES (DATE_ADD(NOW(), INTERVAL 1 SECOND), '2999-12-31 00:00:00')"; // para ligar o device a current PAN
+        $sql = "INSERT INTO Period VALUES ('$nowplusoneFormatted', '2999-12-31 00:00:00')"; // para ligar o device a current PAN
         $result = $connection->query($sql);
         if ($result == FALSE) {
           $info = $connection->errorInfo();
@@ -104,7 +111,7 @@
         }
       }
 
-      $sql = "INSERT INTO Connects VALUES(DATE_ADD(NOW(), INTERVAL 1 SECOND), '2999-12-31 00:00:00', '$snum[$i]', '$manuf[$i]', '{$_SESSION['s_currentPAN']}')";
+      $sql = "INSERT INTO Connects VALUES('$nowplusoneFormatted', '2999-12-31 00:00:00', '$snum[$i]', '$manuf[$i]', '{$_SESSION['s_currentPAN']}')";
       $result = $connection->query($sql);
       if ($result == FALSE) {
         $info = $connection->errorInfo();
