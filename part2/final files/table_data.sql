@@ -122,6 +122,7 @@ insert into Period values('2015-09-15 00:00:00','2999 -12-31 00:00:00');
 insert into Period values('2015-08-25 00:00:00','2999 -12-31 00:00:00');
 insert into Period values('2015-08-26 00:00:00','2999 -12-31 00:00:00');
 insert into Period values('2015-09-17 00:00:00','2999 -12-31 00:00:00');
+insert into Period values('2015-09-17 00:00:00', '2999-12-31 00:00:00');
 
 
 insert into Reading values('87650943', 'Philips', '2015-10-09 08:00:12', '60.3');
