@@ -73,40 +73,46 @@
 
       echo("<p><font size=\"2\">Previous PAN: <strong>$previousPAN</strong></font></p>");
 
-      $sql = "SELECT Connects.snum, Connects.manuf, Connects.start
-              FROM Connects
-              WHERE Connects.pan = '$previousPAN'
-                AND Connects.start < '$previousPAN_end'
-                AND Connects.end = '2999-12-31 00:00:00'";
-                // garantir que devices foram ligados a previous PAN durante o tempo que o paciente esteve ligado a ela
-                // garantir que os devices ainda estao ligados a previous PAN
-                // preciso do start para depois poder inserir na tabela Period[start, now] para desligar da previous PAN
-
-      $result = $connection->query($sql);
-      if ($result == FALSE) {
-        $info = $connection->errorInfo();
-        echo("<p>Error: {$info[2]}</p>");
-        exit();
-      }
-
-      if($result->rowCount() == 0) {
-        echo("PAN <font size=\"2\"><strong>$previousPAN</strong></font> does not have any transferable devices");
+      if($previousPAN === $currentPAN) { //the two variables are of the same type
+        echo("The current PAN is the same as the previous PAN");
       }
 
       else {
-        echo("Displaying devices than can be transfered from PAN ");
-        echo("<font size=\"2\"><strong>$previousPAN</strong></font>");
-        echo(" to PAN ");
-        echo("<font size=\"2\"><strong>$currentPAN</strong></font>");
-        echo("<p></p>");
+        $sql = "SELECT Connects.snum, Connects.manuf, Connects.start
+                FROM Connects
+                WHERE Connects.pan = '$previousPAN'
+                  AND Connects.start < '$previousPAN_end'
+                  AND Connects.end = '2999-12-31 00:00:00'";
+                  // garantir que devices foram ligados a previous PAN durante o tempo que o paciente esteve ligado a ela
+                  // garantir que os devices ainda estao ligados a previous PAN
+                  // preciso do start para depois poder inserir na tabela Period[start, now] para desligar da previous PAN
 
-        foreach($result as $row) {
-          echo("<input type=\"checkbox\" name=\"device_info[]\" value=\"{$row['snum']}#{$row['manuf']}#{$row['start']}\"/>
-            <font size=\"2.5\"><strong>Serial Number</strong></font>: {$row['snum']}
-            / <font size=\"2.5\"><strong>Manufacturer</strong></font>: {$row['manuf']}<br/>");
+        $result = $connection->query($sql);
+        if ($result == FALSE) {
+          $info = $connection->errorInfo();
+          echo("<p>Error: {$info[2]}</p>");
+          exit();
         }
 
-        echo("<p><input type=\"submit\" value=\"Submit\"/></p>");
+        if($result->rowCount() == 0) {
+          echo("PAN <font size=\"2\"><strong>$previousPAN</strong></font> does not have any transferable devices");
+        }
+
+        else {
+          echo("Displaying devices than can be transfered from PAN ");
+          echo("<font size=\"2\"><strong>$previousPAN</strong></font>");
+          echo(" to PAN ");
+          echo("<font size=\"2\"><strong>$currentPAN</strong></font>");
+          echo("<p></p>");
+
+          foreach($result as $row) {
+            echo("<input type=\"checkbox\" name=\"device_info[]\" value=\"{$row['snum']}#{$row['manuf']}#{$row['start']}\"/>
+              <font size=\"2.5\"><strong>Serial Number</strong></font>: {$row['snum']}
+              / <font size=\"2.5\"><strong>Manufacturer</strong></font>: {$row['manuf']}<br/>");
+          }
+
+          echo("<p><input type=\"submit\" value=\"Submit\"/></p>");
+        }
       }
     }
   }
