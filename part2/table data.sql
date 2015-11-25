@@ -32,6 +32,9 @@ insert into Device values('87650943', 'Philips', 'blood pressure');
 insert into Device values('98765432', 'Philips', 'blood pressure');
 insert into Device values('12345678', 'Philips', 'scale');
 insert into Device values('12098765', 'Philips', 'scale');
+insert into Device values('33333333', 'Xiaomi', 'scale');
+insert into Device values('11111111', 'Xiaomi', 'scale');
+insert into Device values('22222222', 'Xiaomi', 'scale');
 insert into Device values('87650943', 'Philips', 'scale'); -- should fail
 insert into Device values('35647828', 'Philips', 'rotating speed');
 insert into Device values('67756535', 'Xiaomi', 'rotating speed');
@@ -49,13 +52,16 @@ insert into Sensor values('87650943', 'Philips', 'mm Hg');
 insert into Sensor values('98765432', 'Philips', 'mm Hg');
 insert into Sensor values('12345678', 'Philips', 'kg');
 insert into Sensor values('12098765', 'Philips', 'kg');
-insert into Sensor values('55342299', 'Xiaomi', 'kg');
+insert into Sensor values('11111111', 'Xiaomi', 'kg');
+insert into Sensor values('22222222', 'Xiaomi', 'kg');
+insert into Sensor values('33333333', 'Xiaomi', 'kg');
 
 
 insert into Actuator values('35647828', 'Philips', 'rpm');
 insert into Actuator values('67756535', 'Xiaomi', 'rpm');
 insert into Actuator values('97754422', 'Xiaomi', 'rpm');
 insert into Actuator values('45545545', 'Samsung', 'rpm');
+insert into Actuator values('55342299', 'Xiaomi', 'rpm');
 
 
 insert into Municipality values('12345', 'Lisboa');
@@ -101,6 +107,7 @@ insert into Period values('2015-07-31 00:00:00','2015-08-20 00:00:00');
 insert into Period values('2015-08-10 00:00:00','2015-08-11 00:00:00');
 insert into Period values('2015-08-12 00:00:00','2015-08-20 00:00:00');
 insert into Period values('2015-08-21 00:00:00','2015-08-30 00:00:00');
+insert into Period values('2013-07-02 08:00:00','2015-08-31 00:00:00');
 
 insert into Period values('2015-01-12 00:00:00','2015-01-31 00:00:00');
 insert into Period values('2015-01-12 00:00:00','2999-12-31 00:00:00');
@@ -125,17 +132,17 @@ insert into Setting values('35647828', 'Philips', '2015-10-09 09:00:55', '50.45'
 
 insert into Wears values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '987654321', 'pan88.healthunit.org');
-insert into Wears values('2015-01-03 08:00:00', '2015-01-07 08:00:00', '123456789', 'pan99.healthunit.org');
-insert into Wears values('2015-01-03 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org');
-insert into Wears values('2014-12-04 08:00:00', '2015-01-04 08:00:00', '123456789', 'pan99.healthunit.org');
-insert into Wears values('2015-01-01 08:00:00', '2015-01-15 08:00:00', '123456789', 'pan99.healthunit.org');
-insert into Wears values('2015-01-01 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org');
-insert into Wears values('2014-12-04 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org');
-insert into Wears values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '123456789', 'pan99.healthunit.org');
+insert into Wears values('2015-01-03 08:00:00', '2015-01-07 08:00:00', '123456789', 'pan99.healthunit.org'); --fails
+insert into Wears values('2015-01-03 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org'); --fails
+insert into Wears values('2014-12-04 08:00:00', '2015-01-04 08:00:00', '123456789', 'pan99.healthunit.org'); --fails
+insert into Wears values('2015-01-01 08:00:00', '2015-01-15 08:00:00', '123456789', 'pan99.healthunit.org'); --fails
+insert into Wears values('2015-01-01 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org'); --fails
+insert into Wears values('2014-12-04 08:00:00', '2015-02-03 08:00:00', '123456789', 'pan99.healthunit.org'); --fails
+insert into Wears values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '123456789', 'pan99.healthunit.org'); --fails
 insert into Wears values('2015-02-01 08:00:00', '2015-03-01 08:00:00', '123456789', 'pan33.healthunit.org');
-insert into Wears values('2015-02-02 08:00:00', '2015-02-10 08:00:00', '98765432', 'pan99.healthunit.org');
-insert into Wears values('2014-03-02 08:00:00', '2015-05-01 08:00:00', '123456789', 'pan99.healthunit.org');
-insert into Wears values('2015-05-02 08:00:00', '2015-06-02 08:00:00', '98765432', 'pan99.healthunit.org');
+insert into Wears values('2015-02-02 08:00:00', '2015-02-10 08:00:00', '98765432', 'pan99.healthunit.org'); --fails
+insert into Wears values('2014-03-02 08:00:00', '2015-05-01 08:00:00', '123456789', 'pan99.healthunit.org'); --fails
+insert into Wears values('2015-05-02 08:00:00', '2015-06-02 08:00:00', '98765432', 'pan99.healthunit.org'); --fails
 insert into Wears values('2015-06-03 08:00:00', '2020-01-01 08:00:00', '123456789', 'pan99.healthunit.org');
 insert into Wears values('2015-06-03 08:00:00', '2020-01-01 08:00:00', '987654321', 'pan88.healthunit.org');
 insert into Wears values('2015-07-02 08:00:00', '2020-02-10 08:00:00', '987654322', 'pan33.healthunit.org');
@@ -149,25 +156,25 @@ insert into Wears values('2000-07-02 08:00:00', '2001-12-31 00:00:00', '11111111
 
 insert into Wears values('2015-01-12 00:00:00', '2015-06-21 00:00:00', '234567891', 'pan01.healthunit.org');
 insert into Wears values('2015-03-13 00:00:00', '2015-05-14 00:00:00', '345678912', 'pan02.healthunit.org');
-insert into Wears values('2015-06-14 00:00:00', '2016-03-20 00:00:00', '456789123', 'pan01.healthunit.org');
+insert into Wears values('2015-06-14 00:00:00', '2016-03-20 00:00:00', '456789123', 'pan01.healthunit.org'); --fails
 insert into Wears values('2015-06-15 00:00:00', '2015-07-16 00:00:00', '567891234', 'pan02.healthunit.org');
-insert into Wears values('2015-06-20 00:00:00', '2015-06-30 00:00:00', '234567891', 'pan03.healthunit.org');
+insert into Wears values('2015-06-20 00:00:00', '2015-06-30 00:00:00', '234567891', 'pan03.healthunit.org'); --fails
 insert into Wears values('2015-06-22 00:00:00', '2015-06-30 00:00:00', '234567891', 'pan03.healthunit.org');
 insert into Wears values('2015-07-31 00:00:00', '2015-08-20 00:00:00', '567891234', 'pan01.healthunit.org');
 insert into Wears values('2015-08-10 00:00:00', '2015-08-11 00:00:00', '678912345', 'pan02.healthunit.org');
-insert into Wears values('2015-08-12 00:00:00', '2015-08-20 00:00:00', '678912345', 'pan01.healthunit.org');
+insert into Wears values('2015-08-12 00:00:00', '2015-08-20 00:00:00', '678912345', 'pan01.healthunit.org'); --fails
 insert into Wears values('2015-08-21 00:00:00', '2015-08-30 00:00:00', '678912345', 'pan01.healthunit.org');
 
 
 insert into Connects values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
 insert into Connects values('2014-01-01 08:00:00', '2015-01-30 08:00:00', '35647828', 'Philips','pan99.healthunit.org');
-insert into Connects values('2015-01-03 08:00:00', '2015-01-07 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
-insert into Connects values('2015-01-03 08:00:00', '2015-02-03 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
-insert into Connects values('2014-12-04 08:00:00', '2015-01-04 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
-insert into Connects values('2015-01-01 08:00:00', '2015-01-15 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
-insert into Connects values('2015-01-01 08:00:00', '2015-02-03 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
-insert into Connects values('2014-12-04 08:00:00', '2015-02-03 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
-insert into Connects values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '87650943', 'Philips','pan99.healthunit.org');
+insert into Connects values('2015-01-03 08:00:00', '2015-01-07 08:00:00', '87650943', 'Philips','pan99.healthunit.org'); --fails
+insert into Connects values('2015-01-03 08:00:00', '2015-02-03 08:00:00', '87650943', 'Philips','pan99.healthunit.org'); --fails
+insert into Connects values('2014-12-04 08:00:00', '2015-01-04 08:00:00', '87650943', 'Philips','pan99.healthunit.org'); --fails
+insert into Connects values('2015-01-01 08:00:00', '2015-01-15 08:00:00', '87650943', 'Philips','pan99.healthunit.org'); --fails
+insert into Connects values('2015-01-01 08:00:00', '2015-02-03 08:00:00', '87650943', 'Philips','pan99.healthunit.org'); --fails
+insert into Connects values('2014-12-04 08:00:00', '2015-02-03 08:00:00', '87650943', 'Philips','pan99.healthunit.org'); --fails
+insert into Connects values('2015-01-01 08:00:00', '2015-01-01 08:00:00', '87650943', 'Philips','pan99.healthunit.org'); --fails
 insert into Connects values('2015-01-01 08:00:00', '2015-01-30 08:00:00', '12098765', 'Philips','pan88.healthunit.org');
 insert into Connects values('2015-01-02 08:00:00', '2017-01-31 08:00:00', '12345678', 'Philips','pan99.healthunit.org');
 insert into Connects values('2015-06-02 08:00:00', '2017-01-31 08:00:00', '87650943', 'Philips','pan88.healthunit.org');
@@ -175,9 +182,12 @@ insert into Connects values('2015-06-02 08:00:00', '2017-01-31 08:00:00', '12098
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '67756535', 'Xiaomi','pan66.healthunit.org');
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '97754422', 'Xiaomi','pan66.healthunit.org');
 insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '55342299', 'Xiaomi','pan66.healthunit.org');
-insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '35647828', 'Philips','pan66.healthunit.org');
+insert into Connects values('2013-07-02 08:00:00', '2999-12-31 00:00:00', '35647828', 'Philips','pan66.healthunit.org'); --fails
 insert into Connects values('2000-07-02 08:00:00', '2001-12-31 00:00:00', '35647828', 'Philips','pan71.healthunit.org');
 insert into Connects values('2015-07-02 08:00:00', '2999-12-31 00:00:00', '45545545', 'Samsung','pan66.healthunit.org');
+insert into Connects values('2013-07-02 08:00:00', '2015-08-31 00:00:00', '11111111', 'Xiaomi','pan77.healthunit.org');
+insert into Connects values('2015-06-02 08:00:00', '2017-01-31 08:00:00', '22222222', 'Xiaomi','pan33.healthunit.org');
+insert into Connects values('2015-01-02 08:00:00', '2017-01-31 08:00:00', '33333333', 'Xiaomi','pan99.healthunit.org');
 
 insert into Connects values('2015-01-12 00:00:00', '2015-01-31 00:00:00', '12369901', 'Sony','pan01.healthunit.org');
 insert into Connects values('2015-01-12 00:00:00', '2015-01-31 00:00:00', '12369902', 'Xiaomi','pan01.healthunit.org');

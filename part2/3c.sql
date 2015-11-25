@@ -12,10 +12,10 @@ AND NOT EXISTS (SELECT nut4code
                                       AND TIMESTAMPDIFF(YEAR,l.end, NOW()) < 1
                                       AND TIMESTAMPDIFF(YEAR,w.end, NOW()) < 1
                                       AND TIMESTAMPDIFF(YEAR,c.end, NOW()) < 1
-                                      AND TIMESTAMPDIFF(SECOND,c.end, l.start) >= 0
-                                      AND TIMESTAMPDIFF(SECOND,l.end, c.start) >= 0
-                                      AND TIMESTAMPDIFF(SECOND,l.end, w.start) >= 0
-                                      AND TIMESTAMPDIFF(SECOND,w.end, l.start) >= 0
-                                      AND TIMESTAMPDIFF(SECOND,w.end, c.start) >= 0
-                                      AND TIMESTAMPDIFF(SECOND,c.end, w.start) >= 0
+                                      AND TIMESTAMPDIFF(SECOND,c.start, l.end) >= 0
+                                      AND TIMESTAMPDIFF(SECOND,l.start, c.end) >= 0
+                                      AND TIMESTAMPDIFF(SECOND,l.start, w.end) >= 0
+                                      AND TIMESTAMPDIFF(SECOND,w.start, l.end) >= 0
+                                      AND TIMESTAMPDIFF(SECOND,w.start, c.end) >= 0
+                                      AND TIMESTAMPDIFF(SECOND,c.start, w.end) >= 0
                                       AND d.manufacturer = d1.manufacturer));
